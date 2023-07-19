@@ -21,7 +21,7 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         batch = new SpriteBatch();
-        backgroundTexture = new Texture(Gdx.files.internal("background.png"));
+        backgroundTexture = new Texture(Gdx.files.internal("fon.png"));
         font = new BitmapFont();
     }
 
@@ -71,4 +71,3 @@ public class GameScreen implements Screen {
         font.dispose();
     }
 }
-

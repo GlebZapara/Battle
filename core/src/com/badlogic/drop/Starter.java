@@ -1,9 +1,7 @@
 package com.badlogic.drop;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,9 +21,18 @@ public class Starter extends Game {
 	float healthTime2;
 	float armorTime1;
 	float armorTime2;
+	public boolean getGameStarted() {
+		return gameStarted;
+	}
+
+	public void setGameStarted(boolean gameStarted) {
+		this.gameStarted = gameStarted;
+	}
+	private boolean gameStarted = false;
+
 
 	public void create() {
-		setScreen(new MainMenuScreen(this));
+		setScreen(new GameScreen(this));
 		batch = new SpriteBatch();
 		random = new Random();
 		font = new BitmapFont();
@@ -39,6 +46,8 @@ public class Starter extends Game {
 		healthTime2 = 0;
 		armorTime1 = 0;
 		armorTime2 = 0;
+
+		showMainMenu();
 	}
 
 	public void render() {
@@ -161,6 +170,10 @@ public class Starter extends Game {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void showMainMenu() {
+		setScreen(new MainMenuScreen(this));
 	}
 
 	public void dispose() {

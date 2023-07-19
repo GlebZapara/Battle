@@ -13,18 +13,16 @@ public class MainMenuScreen implements Screen {
     private final Starter game;
     private OrthographicCamera camera;
     private SpriteBatch batch;
-    private BitmapFont font;
     private Texture backgroundTexture;
+    private BitmapFont font;
 
     public MainMenuScreen(final Starter game) {
         this.game = game;
-
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.setToOrtho(false);
-
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, 800, 480);
         batch = new SpriteBatch();
-        font = new BitmapFont();
         backgroundTexture = new Texture(Gdx.files.internal("background.png"));
+        font = new BitmapFont();
     }
 
     @Override
@@ -36,13 +34,12 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        camera.update();
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
         font.draw(batch, "TAP TO START", 350, 240);
-
         batch.end();
 
         if (Gdx.input.justTouched()) {
@@ -70,7 +67,8 @@ public class MainMenuScreen implements Screen {
     @Override
     public void dispose() {
         batch.dispose();
-        font.dispose();
         backgroundTexture.dispose();
+        font.dispose();
     }
 }
+
