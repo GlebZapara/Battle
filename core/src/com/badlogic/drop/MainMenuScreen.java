@@ -42,7 +42,8 @@ public class MainMenuScreen implements Screen {
         font.draw(batch, "TAP TO START", 350, 240);
         batch.end();
 
-        if (Gdx.input.justTouched()) {
+        if (Gdx.input.justTouched() && !game.getGameStarted()) {
+            game.setGameStarted(true);
             game.setScreen(new GameScreen(game));
             dispose();
         }

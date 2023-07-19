@@ -21,18 +21,18 @@ public class Starter extends Game {
 	float healthTime2;
 	float armorTime1;
 	float armorTime2;
+
 	public boolean getGameStarted() {
-		return gameStarted;
+		return GameStarted;
 	}
 
 	public void setGameStarted(boolean gameStarted) {
-		this.gameStarted = gameStarted;
+		GameStarted = gameStarted;
 	}
-	private boolean gameStarted = false;
 
+	private boolean GameStarted = false;
 
 	public void create() {
-		setScreen(new GameScreen(this));
 		batch = new SpriteBatch();
 		random = new Random();
 		font = new BitmapFont();
@@ -48,6 +48,7 @@ public class Starter extends Game {
 		armorTime2 = 0;
 
 		showMainMenu();
+		setScreen(new MainMenuScreen(this));
 	}
 
 	public void render() {
@@ -167,9 +168,8 @@ public class Starter extends Game {
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
-
 	}
 
 	public void showMainMenu() {
