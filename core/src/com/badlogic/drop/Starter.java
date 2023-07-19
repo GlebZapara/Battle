@@ -28,7 +28,7 @@ public class Starter extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		random = new Random();
 		font = new BitmapFont();
-		player1 = new Player1(325, 100, random.nextInt(100) + 1, 100, 100, "Player1");
+		player1 = new Player1(315, 100, random.nextInt(100) + 1, 100, 100, "Player1");
 		player2 = new Player2(25, 100, random.nextInt(100) + 1, 100, 100, "Player2");
 		totalDamage1 = 0;
 		totalDamage2 = 0;
