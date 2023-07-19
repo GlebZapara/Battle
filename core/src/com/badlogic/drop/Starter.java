@@ -66,7 +66,7 @@ public class Starter extends ApplicationAdapter {
 		}
 		font.draw(batch, "Health: " + player2.health, 550, 361);
 
-		if (damageTime1 > 0) {
+		if (damageTime1 >= 0) {
 			font.setColor(1, 0, 0, damageTime1);
 			font.draw(batch, "Damage: " + totalDamage1, 548, 381);
 			font.setColor(1, 1, 1, 1);
@@ -75,7 +75,7 @@ public class Starter extends ApplicationAdapter {
 			font.draw(batch, "Damage: " + totalDamage1, 550, 381);
 		}
 
-		if (damageTime2 > 0) {
+		if (damageTime2 >= 0) {
 			font.setColor(1, 0, 0, damageTime2);
 			font.draw(batch, "Damage: " + totalDamage2, 10, 381);
 			font.setColor(1, 1, 1, 1);
@@ -107,14 +107,19 @@ public class Starter extends ApplicationAdapter {
 				damageDifference = Math.min(player2.armor, damage);
 				player2.armor -= damageDifference;
 				totalDamage2 += damageDifference;
+				healthTime1 = 1;
 				damageTime1 = 1;
 				armorTime2 = 1;
 				System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage to armor.");
 			} else {
 				damageDifference = damage;
+				if (player2.armor == 0) {
+					healthTime1 = 1;
+					damageTime1 = 1;
+					armorTime2 = 1;
+				}
 				player2.health -= damageDifference;
 				totalDamage2 += damageDifference;
-				healthTime1 = 1;
 				System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage.");
 			}
 
@@ -128,14 +133,19 @@ public class Starter extends ApplicationAdapter {
 				damageDifference = Math.min(player1.armor, damage);
 				player1.armor -= damageDifference;
 				totalDamage1 += damageDifference;
+				healthTime2 = 1;
 				damageTime2 = 1;
 				armorTime1 = 1;
 				System.out.println(player2.name + " attacks " + player1.name + " and deals " + damageDifference + " damage to armor.");
 			} else {
 				damageDifference = damage;
+				if (player1.armor == 0) {
+					healthTime2 = 1;
+					damageTime2 = 1;
+					armorTime1 = 1;
+				}
 				player1.health -= damageDifference;
 				totalDamage1 += damageDifference;
-				healthTime2 = 1;
 				System.out.println(player2.name + " attacks " + player1.name + " and deals " + damageDifference + " damage.");
 			}
 
@@ -144,13 +154,12 @@ public class Starter extends ApplicationAdapter {
 			}
 		}
 
-		float deltaTime = Gdx.graphics.getDeltaTime();
-		damageTime1 = Math.max(0, damageTime1 - deltaTime * 0.030f);
-		damageTime2 = Math.max(0, damageTime2 - deltaTime * 0.030f);
-		healthTime1 = Math.max(0, healthTime1 - deltaTime * 0.030f);
-		healthTime2 = Math.max(0, healthTime2 - deltaTime * 0.030f);
-		armorTime1 = Math.max(0, armorTime1 - deltaTime * 0.030f);
-		armorTime2 = Math.max(0, armorTime2 - deltaTime * 0.030f);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void dispose() {
