@@ -3,6 +3,7 @@ package com.badlogic.drop;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -28,8 +29,8 @@ public class Starter extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		random = new Random();
 		font = new BitmapFont();
-		player1 = new Player1(315, 100, random.nextInt(100) + 1, 100, 100, "Player1");
-		player2 = new Player2(25, 100, random.nextInt(100) + 1, 100, 100, "Player2");
+		player1 = new Player1(315, 20, random.nextInt(100) + 1, 100, 100, "Player1");
+		player2 = new Player2(25, 20, random.nextInt(100) + 1, 100, 100, "Player2");
 		totalDamage1 = 0;
 		totalDamage2 = 0;
 		damageTime1 = 0;
@@ -41,8 +42,9 @@ public class Starter extends ApplicationAdapter {
 	}
 
 	public void render() {
-		ScreenUtils.clear(131f / 255f, 235f / 255f, 52f / 255f, 1);
+		Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
 		batch.begin();
+		batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		player1.render(batch);
 		player2.render(batch);
 
