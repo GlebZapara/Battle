@@ -29,8 +29,8 @@ public class Starter extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		random = new Random();
 		font = new BitmapFont();
-		player1 = new Player1(315, 20, random.nextInt(100) + 1, 100, 100, "Player1");
-		player2 = new Player2(25, 20, random.nextInt(100) + 1, 100, 100, "Player2");
+		player1 = new Player1(317, 20, random.nextInt(100) + 1, 1000, 1000, "Player1");
+		player2 = new Player2(27, 20, random.nextInt(100) + 1, 1000, 1000, "Player2");
 		totalDamage1 = 0;
 		totalDamage2 = 0;
 		damageTime1 = 0;
@@ -55,7 +55,7 @@ public class Starter extends ApplicationAdapter {
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Health: " + player1.health, 10, 361);
+		font.draw(batch, "Health: " + player1.health, 20, 361);
 
 		if (player2.health <= 0) {
 			font.setColor(0, 0, 0, healthTime2);
@@ -64,24 +64,24 @@ public class Starter extends ApplicationAdapter {
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Health: " + player2.health, 550, 361);
+		font.draw(batch, "Health: " + player2.health, 530, 361);
 
 		if (damageTime1 >= 0) {
 			font.setColor(1, 0, 0, damageTime1);
-			font.draw(batch, "Damage: " + totalDamage1, 548, 381);
+			font.draw(batch, "Damage: " + totalDamage1, 530, 381);
 			font.setColor(1, 1, 1, 1);
 		} else {
 			font.setColor(1, 1, 1, 1);
-			font.draw(batch, "Damage: " + totalDamage1, 550, 381);
+			font.draw(batch, "Damage: " + totalDamage1, 530, 381);
 		}
 
 		if (damageTime2 >= 0) {
 			font.setColor(1, 0, 0, damageTime2);
-			font.draw(batch, "Damage: " + totalDamage2, 10, 381);
+			font.draw(batch, "Damage: " + totalDamage2, 20, 381);
 			font.setColor(1, 1, 1, 1);
 		} else {
 			font.setColor(1, 1, 1, 1);
-			font.draw(batch, "Damage: " + totalDamage2, 10, 381);
+			font.draw(batch, "Damage: " + totalDamage2, 20, 381);
 		}
 
 		if (armorTime1 > 0) {
@@ -89,14 +89,14 @@ public class Starter extends ApplicationAdapter {
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Armor: " + player1.armor, 10, 341);
+		font.draw(batch, "Armor: " + player1.armor, 20, 341);
 
 		if (armorTime2 > 0) {
 			font.setColor(0, 0, 1, armorTime2);
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Armor: " + player2.armor, 550, 341);
+		font.draw(batch, "Armor: " + player2.armor, 530, 341);
 
 		batch.end();
 
