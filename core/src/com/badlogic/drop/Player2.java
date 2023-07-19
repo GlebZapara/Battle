@@ -15,7 +15,7 @@ public class Player2 {
     public int armor;
 
     public Player2(float x, float y, int attack, int health, int armor, String name) {
-        texture = new Texture("Зеленый.png");
+        texture = new Texture("Фиолетовый.png");
         position.set(x, y);
         this.attack = attack;
         this.health = health;

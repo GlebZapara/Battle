@@ -1,13 +1,15 @@
 package com.badlogic.drop;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Random;
 
-public class Starter extends ApplicationAdapter {
+public class Starter extends Game {
 	SpriteBatch batch;
 	Player1 player1;
 	Player2 player2;
@@ -23,11 +25,12 @@ public class Starter extends ApplicationAdapter {
 	float armorTime2;
 
 	public void create() {
+		setScreen(new MainMenuScreen(this));
 		batch = new SpriteBatch();
 		random = new Random();
 		font = new BitmapFont();
-		player1 = new Player1(317, 20, random.nextInt(100) + 1, 100, 100, "Player1");
-		player2 = new Player2(27, 20, random.nextInt(100) + 1, 100, 100, "Player2");
+		player1 = new Player1(27, 20, random.nextInt(100) + 1, 100, 100, "Player2");
+		player2 = new Player2(1601, 20, random.nextInt(100) + 1, 100, 100, "Player1");
 		totalDamage1 = 0;
 		totalDamage2 = 0;
 		damageTime1 = 0;
@@ -39,20 +42,12 @@ public class Starter extends ApplicationAdapter {
 	}
 
 	public void render() {
+		super.render();
 		Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
 		batch.begin();
 		batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		player1.render(batch);
 		player2.render(batch);
-
-		if (player1.health <= 0) {
-			font.setColor(0, 0, 0, healthTime1);
-		} else if (healthTime1 > 0) {
-			font.setColor(0, 1, 0, healthTime1);
-		} else {
-			font.setColor(1, 1, 1, 1);
-		}
-		font.draw(batch, "Health: " + player1.health, 20, 361);
 
 		if (player2.health <= 0) {
 			font.setColor(0, 0, 0, healthTime2);
@@ -61,39 +56,48 @@ public class Starter extends ApplicationAdapter {
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Health: " + player2.health, 530, 361);
+		font.draw(batch, "Health: " + player2.health, 20, 361);
 
-		if (damageTime1 >= 0) {
-			font.setColor(1, 0, 0, damageTime1);
-			font.draw(batch, "Damage: " + totalDamage1, 530, 381);
-			font.setColor(1, 1, 1, 1);
+		if (player1.health <= 0) {
+			font.setColor(0, 0, 0, healthTime1);
+		} else if (healthTime1 > 0) {
+			font.setColor(0, 1, 0, healthTime1);
 		} else {
 			font.setColor(1, 1, 1, 1);
-			font.draw(batch, "Damage: " + totalDamage1, 530, 381);
 		}
+		font.draw(batch, "Health: " + player1.health, 1823, 361);
 
 		if (damageTime2 >= 0) {
 			font.setColor(1, 0, 0, damageTime2);
-			font.draw(batch, "Damage: " + totalDamage2, 20, 381);
+			font.draw(batch, "Damage: " + totalDamage2, 1823, 381);
 			font.setColor(1, 1, 1, 1);
 		} else {
 			font.setColor(1, 1, 1, 1);
-			font.draw(batch, "Damage: " + totalDamage2, 20, 381);
+			font.draw(batch, "Damage: " + totalDamage2, 1823, 381);
 		}
 
-		if (armorTime1 > 0) {
-			font.setColor(0, 0, 1, armorTime1);
+		if (damageTime1 >= 0) {
+			font.setColor(1, 0, 0, damageTime1);
+			font.draw(batch, "Damage: " + totalDamage1, 20, 381);
+			font.setColor(1, 1, 1, 1);
 		} else {
 			font.setColor(1, 1, 1, 1);
+			font.draw(batch, "Damage: " + totalDamage1, 20, 381);
 		}
-		font.draw(batch, "Armor: " + player1.armor, 20, 341);
 
 		if (armorTime2 > 0) {
 			font.setColor(0, 0, 1, armorTime2);
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Armor: " + player2.armor, 530, 341);
+		font.draw(batch, "Armor: " + player2.armor, 20, 341);
+
+		if (armorTime1 > 0) {
+			font.setColor(0, 0, 1, armorTime1);
+		} else {
+			font.setColor(1, 1, 1, 1);
+		}
+		font.draw(batch, "Armor: " + player1.armor, 1823, 341);
 
 		batch.end();
 
@@ -160,6 +164,7 @@ public class Starter extends ApplicationAdapter {
 	}
 
 	public void dispose() {
+		super.dispose();
 		batch.dispose();
 		player1.dispose();
 		player2.dispose();
