@@ -46,25 +46,8 @@ public class Starter extends ApplicationAdapter {
 		player1.render(batch);
 		player2.render(batch);
 
-		font.draw(batch, "Damage: " + totalDamage1, 540, 381);
-		font.draw(batch, "Damage: " + totalDamage2, 10, 381);
-		font.draw(batch, "Health: " + player2.health, 540, 361);
-		font.draw(batch, "Health: " + player1.health, 10, 361);
-		font.draw(batch, "Armor: " + player2.armor, 540, 341);
-		font.draw(batch, "Armor: " + player1.armor, 10, 341);
-
-		if (damageTime1 > 0) {
-			font.setColor(1, 0, 0, damageTime1);
-			font.draw(batch, "Damage: " + totalDamage1, 540, 381);
-			font.setColor(1, 1, 1, 1);
-		}
-		if (damageTime2 > 0) {
-			font.setColor(1, 0, 0, damageTime2);
-			font.draw(batch, "Damage: " + totalDamage2, 10, 381);
-			font.setColor(1, 1, 1, 1);
-		}
 		if (player1.health <= 0) {
-			font.setColor(Color.BROWN);
+			font.setColor(0, 0, 0, healthTime1);
 		} else if (healthTime1 > 0) {
 			font.setColor(0, 1, 0, healthTime1);
 		} else {
@@ -73,27 +56,45 @@ public class Starter extends ApplicationAdapter {
 		font.draw(batch, "Health: " + player1.health, 10, 361);
 
 		if (player2.health <= 0) {
-			font.setColor(Color.BROWN);
+			font.setColor(0, 0, 0, healthTime2);
 		} else if (healthTime2 > 0) {
 			font.setColor(0, 1, 0, healthTime2);
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Health: " + player2.health, 540, 361);
+		font.draw(batch, "Health: " + player2.health, 550, 361);
+
+		if (damageTime1 > 0) {
+			font.setColor(1, 0, 0, damageTime1);
+			font.draw(batch, "Damage: " + totalDamage1, 548, 381);
+			font.setColor(1, 1, 1, 1);
+		} else {
+			font.setColor(1, 1, 1, 1);
+			font.draw(batch, "Damage: " + totalDamage1, 550, 381);
+		}
+
+		if (damageTime2 > 0) {
+			font.setColor(1, 0, 0, damageTime2);
+			font.draw(batch, "Damage: " + totalDamage2, 10, 381);
+			font.setColor(1, 1, 1, 1);
+		} else {
+			font.setColor(1, 1, 1, 1);
+			font.draw(batch, "Damage: " + totalDamage2, 10, 381);
+		}
 
 		if (armorTime1 > 0) {
 			font.setColor(0, 0, 1, armorTime1);
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Armor: " + player1.armor, 540, 341);
+		font.draw(batch, "Armor: " + player1.armor, 10, 341);
 
 		if (armorTime2 > 0) {
 			font.setColor(0, 0, 1, armorTime2);
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Armor: " + player2.armor, 10, 341);
+		font.draw(batch, "Armor: " + player2.armor, 550, 341);
 
 		batch.end();
 
@@ -124,7 +125,6 @@ public class Starter extends ApplicationAdapter {
 			if (player1.armor > 0) {
 				damageDifference = Math.min(player1.armor, damage);
 				player1.armor -= damageDifference;
-				player1.health -= damageDifference;
 				totalDamage1 += damageDifference;
 				damageTime2 = 1;
 				armorTime1 = 1;
