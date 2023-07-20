@@ -22,15 +22,15 @@ public class Starter extends Game {
 	float armorTime1;
 	float armorTime2;
 
-	public boolean getGameStarted() {
-		return GameStarted;
+	public boolean getGameScreen() {
+		return GameScreen;
 	}
 
-	public void setGameStarted(boolean gameStarted) {
-		GameStarted = gameStarted;
+	public void setGameScreen(boolean gameScreen) {
+		this.GameScreen = gameScreen;
 	}
 
-	private boolean GameStarted = false;
+	private boolean GameScreen = false;
 
 	public void create() {
 		batch = new SpriteBatch();
@@ -48,10 +48,17 @@ public class Starter extends Game {
 		armorTime2 = 0;
 
 		showMainMenu();
-		setScreen(new MainMenuScreen(this));
+		setScreen(new GameScreen(this));
 	}
 
 	public void render() {
+
+		boolean isScreen = getGameScreen();
+
+		if (!isScreen) {
+			setGameScreen(true);
+		}
+
 		super.render();
 		Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
 		batch.begin();
@@ -173,7 +180,7 @@ public class Starter extends Game {
 	}
 
 	public void showMainMenu() {
-		setScreen(new MainMenuScreen(this));
+		setScreen(new GameScreen(this));
 	}
 
 	public void dispose() {

@@ -19,7 +19,7 @@ public class GameScreen implements Screen {
     public GameScreen(final Starter game) {
         this.game = game;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, 1920, 1080);
         batch = new SpriteBatch();
         backgroundTexture = new Texture(Gdx.files.internal("fon.png"));
         font = new BitmapFont();
@@ -39,10 +39,11 @@ public class GameScreen implements Screen {
 
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        font.draw(batch, "TYPE TO START", 400, 240);
+        font.draw(batch, "TYPE TO START", 960, 540);
         batch.end();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) && !game.getGameScreen()) {
+            game.setGameScreen(true);
             game.setScreen(new GameScreen(game));
             dispose();
         }
