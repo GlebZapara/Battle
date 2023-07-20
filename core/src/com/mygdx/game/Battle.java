@@ -1,12 +1,14 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.ApplicationAdapter;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Battle {
+public class Battle extends ApplicationAdapter {
 	public static void main(String[] args) {
 		try {
 			// Загрузка изображения

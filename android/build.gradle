@@ -1,4 +1,9 @@
 android {
+
+    defaultConfig {
+
+        multiDexEnabled true
+    }
     namespace "com.badlogic.drop"
     buildToolsVersion "33.0.2"
     compileSdkVersion 32
@@ -13,6 +18,11 @@ android {
             jniLibs.srcDirs = ['libs']
         }
 
+    }
+    dependencies {
+        // Другие зависимости
+
+        implementation 'com.android.support:multidex:1.0.3'
     }
     packagingOptions {
         exclude 'META-INF/robovm/ios/robovm.xml'
