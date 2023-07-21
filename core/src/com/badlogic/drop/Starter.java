@@ -99,11 +99,11 @@ public class Starter extends Game {
 
 		if (damageTime1 >= 0) {
 			font.setColor(1, 0, 0, damageTime1);
-			font.draw(batch, "Damage: " + totalDamage1, 1830, 381);
+			font.draw(batch, "Damage: " + totalDamage1, 1823, 381);
 			font.setColor(1, 1, 1, 1);
 		} else {
 			font.setColor(1, 1, 1, 1);
-			font.draw(batch, "Damage: " + totalDamage1, 1830, 381);
+			font.draw(batch, "Damage: " + totalDamage1, 1823, 381);
 		}
 
 		if (armorTime2 > 0) {
@@ -111,7 +111,7 @@ public class Starter extends Game {
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Armor: " + player2.armor, 1830, 341);
+		font.draw(batch, "Armor: " + player2.armor, 1823, 341);
 
 		if (armorTime1 > 0) {
 			font.setColor(0, 0, 1, armorTime1);
@@ -127,12 +127,12 @@ public class Starter extends Game {
 			int damageDifference;
 			if (player2.armor > 0) {
 				damageDifference = Math.min(player2.armor, damage);
-
 				player2.armor -= damageDifference;
 				totalDamage2 += damageDifference;
 				healthTime1 = 1;
 				damageTime1 = 1;
 				armorTime2 = 1;
+				System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage to armor.");
 				} else {
 				damageDifference = damage;
 				if (player2.armor == 0) {
@@ -140,20 +140,18 @@ public class Starter extends Game {
 					damageTime1 = 1;
 					armorTime2 = 1;
 				}
-
 				player2.health -= damageDifference;
 				totalDamage2 += damageDifference;
 				System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage.");
 			}
+
 			if (player2.health <= 0) {
 				System.out.println(player1.name + " Wins!!!");
 				return;
 			}
-			player1 = new Player1(1601, 20, random.nextInt(100) + 1, 100, 100, "Player1");
 			damage = random.nextInt(player2.attack) + 1;
 			if (player1.armor > 0) {
 				damageDifference = Math.min(player1.armor, damage);
-
 				player1.armor -= damageDifference;
 				totalDamage1 += damageDifference;
 				healthTime2 = 1;
@@ -167,7 +165,6 @@ public class Starter extends Game {
 					damageTime2 = 1;
 					armorTime1 = 1;
 				}
-
 				player1.health -= damageDifference;
 				totalDamage1 += damageDifference;
 				System.out.println(player2.name + " attacks " + player1.name + " and deals " + damageDifference + " damage.");
