@@ -17,6 +17,8 @@ public class Player1 {
     public int armor;
     public String damage;
     private boolean shouldAppear;
+    private float initialXx;
+    private float initialYy;
 
     public Player1(float x, float y, int attack, int health, int armor, String name)  {
          texture = new Texture("Зеленый.png");
@@ -26,8 +28,16 @@ public class Player1 {
         this.armor = armor;
         this.name = name;
         initialPosition.set(x, y);
-     }
+        this.initialXx = x;
+        this.initialYy = y;
+    }
+    public float getInitialX() {
+        return initialXx;
+    }
 
+    public float getInitialY() {
+        return initialYy;
+    }
     public void teleportToInitialPosition() {
         position.x = initialPosition.x;
         position.y = initialPosition.y;

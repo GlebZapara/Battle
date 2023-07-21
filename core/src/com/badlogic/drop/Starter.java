@@ -195,6 +195,11 @@ public class Starter extends Game {
 				player1TeleportTime -= Gdx.graphics.getDeltaTime();
 				if (player1TeleportTime <= 0) {
 					player1.setShouldAppear(false);
+				} else {
+					player1TeleportTime = PLAYER1_TELEPORT_DELAY;
+					player1.getPosition().x = player1.getInitialX();
+					player1.getPosition().y = player1.getInitialY();
+					player1.setShouldAppear(true);
 				}
 			}
 		}
