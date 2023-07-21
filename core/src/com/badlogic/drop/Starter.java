@@ -51,6 +51,10 @@ public class Starter extends Game {
 		setScreen(new GameScreen(this));
 	}
 
+	public void showMainMenu() {
+		setScreen(new GameScreen(this));
+	}
+
 	public void render() {
 
 		boolean isScreen = getGameScreen();
@@ -129,25 +133,23 @@ public class Starter extends Game {
 				healthTime1 = 1;
 				damageTime1 = 1;
 				armorTime2 = 1;
-				System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage to armor.");
-			} else {
+				} else {
 				damageDifference = damage;
 				if (player2.armor == 0) {
 					healthTime1 = 1;
 					damageTime1 = 1;
 					armorTime2 = 1;
 				}
-//				player1 = new Player1(1601, 20);
+
 				player2.health -= damageDifference;
 				totalDamage2 += damageDifference;
 				System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage.");
 			}
-
 			if (player2.health <= 0) {
 				System.out.println(player1.name + " Wins!!!");
 				return;
 			}
-//			player1 = new Player1(1601, 20);
+			player1 = new Player1(1601, 20, random.nextInt(100) + 1, 100, 100, "Player1");
 			damage = random.nextInt(player2.attack) + 1;
 			if (player1.armor > 0) {
 				damageDifference = Math.min(player1.armor, damage);
@@ -181,10 +183,6 @@ public class Starter extends Game {
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	public void showMainMenu() {
-		setScreen(new GameScreen(this));
 	}
 
 	public void dispose() {
