@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 
 public class Player2 {
-    private final Vector2 position = new Vector2();
+    final Vector2 position = new Vector2();
 
     public String name;
     private final Texture texture;

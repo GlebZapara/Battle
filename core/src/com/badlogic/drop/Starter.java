@@ -1,16 +1,22 @@
 package com.badlogic.drop;
 
+import com.badlogic.drop.Player1;
+import com.badlogic.drop.Player2;
+import com.badlogic.drop.Player3;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.Random;
 
 public class Starter extends Game {
 	SpriteBatch batch;
 	Player1 player1;
 	Player2 player2;
+	Player3 player3;
 	Random random;
 	BitmapFont font;
 	int totalDamage1;
@@ -54,6 +60,9 @@ public class Starter extends Game {
 	public void showMainMenu() {
 		setScreen(new GameScreen(this));
 	}
+
+	float player1TeleportTime = 0;
+	final float PLAYER1_TELEPORT_DELAY = 2.0f;
 
 	public void render() {
 
@@ -133,7 +142,7 @@ public class Starter extends Game {
 				damageTime1 = 1;
 				armorTime2 = 1;
 				System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage to armor.");
-				} else {
+			} else {
 				damageDifference = damage;
 				if (player2.armor == 0) {
 					healthTime1 = 1;
@@ -149,6 +158,7 @@ public class Starter extends Game {
 				System.out.println(player1.name + " Wins!!!");
 				return;
 			}
+
 			damage = random.nextInt(player2.attack) + 1;
 			if (player1.armor > 0) {
 				damageDifference = Math.min(player1.armor, damage);
@@ -172,6 +182,20 @@ public class Starter extends Game {
 
 			if (player1.health <= 0) {
 				System.out.println(player2.name + " Wins!!!");
+			}
+
+			if (player1TeleportTime <= 0 && player1.health > 0) {
+				player1TeleportTime = PLAYER1_TELEPORT_DELAY;
+				player1.getPosition().x = player2.position.x;
+				player1.getPosition().y = player2.position.y;
+				player1.setShouldAppear(true);
+			}
+
+			if (player1TeleportTime > 0) {
+				player1TeleportTime -= Gdx.graphics.getDeltaTime();
+				if (player1TeleportTime <= 0) {
+					player1.setShouldAppear(false);
+				}
 			}
 		}
 
