@@ -36,8 +36,8 @@ public class Starter extends Game {
 		batch = new SpriteBatch();
 		random = new Random();
 		font = new BitmapFont();
-		player1 = new Player1(27, 20, random.nextInt(100) + 1, 100, 100, "Player2");
-		player2 = new Player2(1601, 20, random.nextInt(100) + 1, 100, 100, "Player1");
+		player1 = new Player1(27, 20, random.nextInt(100) + 1, 100, 100, "Player1");
+		player2 = new Player2(1601, 20, random.nextInt(100) + 1, 100, 100, "Player2");
 		totalDamage1 = 0;
 		totalDamage2 = 0;
 		damageTime1 = 0;
@@ -73,7 +73,7 @@ public class Starter extends Game {
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Health: " + player2.health, 20, 361);
+		font.draw(batch, "Health: " + player2.health, 1823, 361);
 
 		if (player1.health <= 0) {
 			font.setColor(0, 0, 0, healthTime1);
@@ -82,24 +82,24 @@ public class Starter extends Game {
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Health: " + player1.health, 1823, 361);
+		font.draw(batch, "Health: " + player1.health, 20, 361);
 
 		if (damageTime2 >= 0) {
 			font.setColor(1, 0, 0, damageTime2);
-			font.draw(batch, "Damage: " + totalDamage2, 1823, 381);
+			font.draw(batch, "Damage: " + totalDamage2, 20, 381);
 			font.setColor(1, 1, 1, 1);
 		} else {
 			font.setColor(1, 1, 1, 1);
-			font.draw(batch, "Damage: " + totalDamage2, 1823, 381);
+			font.draw(batch, "Damage: " + totalDamage2, 20, 381);
 		}
 
 		if (damageTime1 >= 0) {
 			font.setColor(1, 0, 0, damageTime1);
-			font.draw(batch, "Damage: " + totalDamage1, 20, 381);
+			font.draw(batch, "Damage: " + totalDamage1, 1830, 381);
 			font.setColor(1, 1, 1, 1);
 		} else {
 			font.setColor(1, 1, 1, 1);
-			font.draw(batch, "Damage: " + totalDamage1, 20, 381);
+			font.draw(batch, "Damage: " + totalDamage1, 1830, 381);
 		}
 
 		if (armorTime2 > 0) {
@@ -107,14 +107,14 @@ public class Starter extends Game {
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Armor: " + player2.armor, 20, 341);
+		font.draw(batch, "Armor: " + player2.armor, 1830, 341);
 
 		if (armorTime1 > 0) {
 			font.setColor(0, 0, 1, armorTime1);
 		} else {
 			font.setColor(1, 1, 1, 1);
 		}
-		font.draw(batch, "Armor: " + player1.armor, 1823, 341);
+		font.draw(batch, "Armor: " + player1.armor, 20, 341);
 
 		batch.end();
 
@@ -123,6 +123,7 @@ public class Starter extends Game {
 			int damageDifference;
 			if (player2.armor > 0) {
 				damageDifference = Math.min(player2.armor, damage);
+
 				player2.armor -= damageDifference;
 				totalDamage2 += damageDifference;
 				healthTime1 = 1;
@@ -136,6 +137,7 @@ public class Starter extends Game {
 					damageTime1 = 1;
 					armorTime2 = 1;
 				}
+//				player1 = new Player1(1601, 20);
 				player2.health -= damageDifference;
 				totalDamage2 += damageDifference;
 				System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage.");
@@ -145,10 +147,11 @@ public class Starter extends Game {
 				System.out.println(player1.name + " Wins!!!");
 				return;
 			}
-
+//			player1 = new Player1(1601, 20);
 			damage = random.nextInt(player2.attack) + 1;
 			if (player1.armor > 0) {
 				damageDifference = Math.min(player1.armor, damage);
+
 				player1.armor -= damageDifference;
 				totalDamage1 += damageDifference;
 				healthTime2 = 1;
@@ -162,6 +165,7 @@ public class Starter extends Game {
 					damageTime2 = 1;
 					armorTime1 = 1;
 				}
+
 				player1.health -= damageDifference;
 				totalDamage1 += damageDifference;
 				System.out.println(player2.name + " attacks " + player1.name + " and deals " + damageDifference + " damage.");
@@ -173,7 +177,7 @@ public class Starter extends Game {
 		}
 
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
