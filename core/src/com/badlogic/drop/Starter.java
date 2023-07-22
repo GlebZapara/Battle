@@ -16,7 +16,6 @@ public class Starter extends Game {
 	SpriteBatch batch;
 	Player1 player1;
 	Player2 player2;
-	Player3 player3;
 	Random random;
 	BitmapFont font;
 	int totalDamage1;
@@ -62,7 +61,7 @@ public class Starter extends Game {
 	}
 
 	float player1TeleportTime = 0;
-	final float PLAYER1_TELEPORT_DELAY = 2.0f;
+	final float PLAYER1_TELEPORT_DELAY = 3.0f;
 
 	public void render() {
 
@@ -131,6 +130,12 @@ public class Starter extends Game {
 
 		batch.end();
 
+		try {
+			Thread.sleep(1500);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+
 		if (player1.health > 0 && player2.health > 0) {
 			int damage = random.nextInt(player1.attack) + 1;
 			int damageDifference;
@@ -157,6 +162,12 @@ public class Starter extends Game {
 			if (player2.health <= 0) {
 				System.out.println(player1.name + " Wins!!!");
 				return;
+			}
+
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
 			}
 
 			damage = random.nextInt(player2.attack) + 1;
@@ -195,19 +206,14 @@ public class Starter extends Game {
 				player1TeleportTime -= Gdx.graphics.getDeltaTime();
 				if (player1TeleportTime <= 0) {
 					player1.setShouldAppear(false);
-				} else {
+				}
+				if (player1TeleportTime <= 0) {
 					player1TeleportTime = PLAYER1_TELEPORT_DELAY;
 					player1.getPosition().x = player1.getInitialX();
 					player1.getPosition().y = player1.getInitialY();
 					player1.setShouldAppear(true);
 				}
 			}
-		}
-
-		try {
-			Thread.sleep(1500);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
 		}
 	}
 
