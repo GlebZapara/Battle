@@ -26,6 +26,12 @@ public class Starter extends Game {
 	float healthTime2;
 	float armorTime1;
 	float armorTime2;
+	private boolean player1CanAttack = true;
+	private boolean player2CanAttack = false;
+
+	float attackCoolDown = 1.5f;
+	float player1AttackTimer = 0f;
+	float player2AttackTimer = attackCoolDown;
 
 	public boolean getGameScreen() {
 		return GameScreen;
@@ -63,7 +69,7 @@ public class Starter extends Game {
 	float player1TeleportTime = 0;
 	final float PLAYER1_TELEPORT_DELAY = 3.0f;
 
-	public void render() {
+	public void render(float delta) {
 
 		boolean isScreen = getGameScreen();
 
@@ -129,6 +135,10 @@ public class Starter extends Game {
 		font.draw(batch, "Armor: " + player1.armor, 20, 341);
 
 		batch.end();
+		updateGameLogic(delta);
+	}
+
+	void updateGameLogic(float delta) {
 
 		try {
 			Thread.sleep(1500);
@@ -137,6 +147,8 @@ public class Starter extends Game {
 		}
 
 		if (player1.health > 0 && player2.health > 0) {
+			player1AttackTimer += delta;
+			player2AttackTimer += delta;
 			int damage = random.nextInt(player1.attack) + 1;
 			int damageDifference;
 			if (player2.armor > 0) {
@@ -203,7 +215,7 @@ public class Starter extends Game {
 			}
 
 			if (player1TeleportTime > 0) {
-				player1TeleportTime -= Gdx.graphics.getDeltaTime();
+				player1TeleportTime -= delta;
 				if (player1TeleportTime <= 0) {
 					player1.setShouldAppear(false);
 				}

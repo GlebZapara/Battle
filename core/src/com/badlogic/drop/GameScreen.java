@@ -15,6 +15,8 @@ public class GameScreen implements Screen {
     private SpriteBatch batch;
     private Texture backgroundTexture;
     private BitmapFont font;
+    private float startDelay = 1.5f;
+    private boolean startGame = false;
 
     public GameScreen(final Starter game) {
         this.game = game;
@@ -46,6 +48,10 @@ public class GameScreen implements Screen {
             game.setGameScreen(true);
             game.setScreen(new GameScreen(game));
             dispose();
+        }
+
+        if (startDelay <= 0) {
+            game.updateGameLogic(delta);
         }
     }
 
