@@ -69,14 +69,12 @@ public class Starter extends Game {
 	final float PLAYER1_TELEPORT_DELAY = 3.0f;
 
 	public void render(float delta) {
-
+		super.render();
 		boolean isScreen = getGameScreen();
 
 		if (!isScreen) {
 			setGameScreen(true);
 		}
-
-		super.render();
 		Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
 		batch.begin();
 		batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

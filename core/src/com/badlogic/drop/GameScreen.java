@@ -50,6 +50,7 @@ public class GameScreen implements Screen {
 
         batch.end();
 
+
         if (!startGame) {
                 if (Gdx.input.isTouched()) {
                 startGame = true;
