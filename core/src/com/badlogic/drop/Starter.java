@@ -4,6 +4,7 @@ import com.badlogic.drop.Player1;
 import com.badlogic.drop.Player2;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,24 +26,9 @@ public class Starter extends Game {
 	float healthTime2;
 	float armorTime1;
 	float armorTime2;
-	private boolean player1CanAttack = true;
-	private boolean player2CanAttack = false;
-	float attackCoolDown = 1.5f;
-	float player1AttackTimer = 0f;
-	float player2AttackTimer = attackCoolDown;
 	float player1TeleportTime = 0;
 	final float PLAYER1_TELEPORT_DELAY = 3.0f;
-
-
-	public boolean getGameScreen() {
-		return GameScreen;
-	}
-
-	public void setGameScreen(boolean gameScreen) {
-		this.GameScreen = gameScreen;
-	}
-
-	private boolean GameScreen = false;
+	private boolean gameStarted = false;
 
 	public void create() {
 		batch = new SpriteBatch();
@@ -59,25 +45,17 @@ public class Starter extends Game {
 		armorTime1 = 0;
 		armorTime2 = 0;
 
-		showMainMenu();
-		setScreen(new GameScreen(this));
-	}
-
-	public void showMainMenu() {
-		setScreen(new GameScreen(this));
 	}
 
 	public void render() {
-		super.render();
-	}
-	void updateGameLogic(float delta) {
 
-		super.render();
-		boolean isScreen = getGameScreen();
-
-		if (!isScreen) {
-			setGameScreen(true);
+		if (!gameStarted) {
+			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+				gameStarted = true;
+			}
 		}
+
+		super.render();
 		Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
 		batch.begin();
 		batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -135,107 +113,99 @@ public class Starter extends Game {
 		font.draw(batch, "Armor: " + player1.armor, 20, 341);
 
 		batch.end();
-		updateGameLogic(delta);
 
-		if (player1CanAttack) {
-			player1AttackTimer += delta;
-			if (player1AttackTimer >= attackCoolDown) {
-				player1CanAttack = false;
-				player2CanAttack = true;
-				player1AttackTimer = 0f;
+		try {
+			Thread.sleep(1500);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
 
-				int damage = random.nextInt(player1.attack) + 1;
-				int damageDifference;
-
-				if (player2.armor > 0) {
-					damageDifference = Math.min(player2.armor, damage);
-					player2.armor -= damageDifference;
-					totalDamage2 += damageDifference;
+		if (player1.health > 0 && player2.health > 0) {
+			int damage = random.nextInt(player1.attack) + 1;
+			int damageDifference;
+			if (player2.armor > 0) {
+				damageDifference = Math.min(player2.armor, damage);
+				player2.armor -= damageDifference;
+				totalDamage2 += damageDifference;
+				healthTime1 = 1;
+				damageTime1 = 1;
+				armorTime2 = 1;
+				System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage to armor.");
+			} else {
+				damageDifference = damage;
+				if (player2.armor == 0) {
 					healthTime1 = 1;
 					damageTime1 = 1;
 					armorTime2 = 1;
-					System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage to armor.");
-				} else {
-					damageDifference = damage;
-					if (player2.armor == 0) {
-						healthTime1 = 1;
-						damageTime1 = 1;
-						armorTime2 = 1;
-					}
-					player2.health -= damageDifference;
-					totalDamage2 += damageDifference;
-					System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage.");
 				}
-
-				if (player2.health <= 0) {
-					System.out.println(player1.name + " Wins!!!");
-					return;
-				}
+				player2.health -= damageDifference;
+				totalDamage2 += damageDifference;
+				System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage.");
 			}
-		}
 
-		if (player2CanAttack) {
-			player2AttackTimer += delta;
-			if (player2AttackTimer >= attackCoolDown) {
-				player1CanAttack = true;
-				player2CanAttack = false;
-				player2AttackTimer = 0f;
+			if (player2.health <= 0) {
+				System.out.println(player1.name + " Wins!!!");
+				return;
+			}
 
-				int damage = random.nextInt(player2.attack) + 1;
-				int damageDifference;
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
 
-				if (player1.armor > 0) {
-					damageDifference = Math.min(player1.armor, damage);
-					player1.armor -= damageDifference;
-					totalDamage1 += damageDifference;
+			damage = random.nextInt(player2.attack) + 1;
+			if (player1.armor > 0) {
+				damageDifference = Math.min(player1.armor, damage);
+				player1.armor -= damageDifference;
+				totalDamage1 += damageDifference;
+				healthTime2 = 1;
+				damageTime2 = 1;
+				armorTime1 = 1;
+				System.out.println(player2.name + " attacks " + player1.name + " and deals " + damageDifference + " damage to armor.");
+			} else {
+				damageDifference = damage;
+				if (player1.armor == 0) {
 					healthTime2 = 1;
 					damageTime2 = 1;
 					armorTime1 = 1;
-					System.out.println(player2.name + " attacks " + player1.name + " and deals " + damageDifference + " damage to armor.");
-				} else {
-					damageDifference = damage;
-					if (player1.armor == 0) {
-						healthTime2 = 1;
-						damageTime2 = 1;
-						armorTime1 = 1;
-					}
-					player1.health -= damageDifference;
-					totalDamage1 += damageDifference;
-					System.out.println(player2.name + " attacks " + player1.name + " and deals " + damageDifference + " damage.");
 				}
+				player1.health -= damageDifference;
+				totalDamage1 += damageDifference;
+				System.out.println(player2.name + " attacks " + player1.name + " and deals " + damageDifference + " damage.");
+			}
 
-				if (player1.health <= 0) {
-					System.out.println(player2.name + " Wins!!!");
+			if (player1.health <= 0) {
+				System.out.println(player2.name + " Wins!!!");
+			}
+
+			if (player1TeleportTime <= 0 && player1.health > 0) {
+				player1TeleportTime = PLAYER1_TELEPORT_DELAY;
+				player1.getPosition().x = player2.position.x;
+				player1.getPosition().y = player2.position.y;
+				player1.setShouldAppear(true);
+			}
+
+			if (player1TeleportTime > 0) {
+				player1TeleportTime -= Gdx.graphics.getDeltaTime();
+				if (player1TeleportTime <= 0) {
+					player1.setShouldAppear(false);
 				}
-
-				if (player1TeleportTime <= 0 && player1.health > 0) {
+				if (player1TeleportTime <= 0) {
 					player1TeleportTime = PLAYER1_TELEPORT_DELAY;
-					player1.getPosition().x = player2.position.x;
-					player1.getPosition().y = player2.position.y;
+					player1.getPosition().x = player1.getInitialX();
+					player1.getPosition().y = player1.getInitialY();
 					player1.setShouldAppear(true);
-				}
-
-				if (player1TeleportTime > 0) {
-					player1TeleportTime -= delta;
-					if (player1TeleportTime <= 0) {
-						player1.setShouldAppear(false);
-					}
-					if (player1TeleportTime <= 0) {
-						player1TeleportTime = PLAYER1_TELEPORT_DELAY;
-						player1.getPosition().x = player1.getInitialX();
-						player1.getPosition().y = player1.getInitialY();
-						player1.setShouldAppear(true);
-					}
 				}
 			}
 		}
 	}
+
 	public void dispose() {
 		super.dispose();
 		batch.dispose();
 		player1.dispose();
 		player2.dispose();
 		font.dispose();
-
 	}
 }
