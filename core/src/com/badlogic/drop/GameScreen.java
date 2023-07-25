@@ -44,19 +44,18 @@ public class GameScreen implements Screen {
 
         if (!startGame) {
             font.draw(batch, "TYPE TO START", 925, 540);
+        }
+        batch.end();
+
+        if (!startGame) {
+            if (Gdx.input.isTouched()) {
+                startGame = true;
+            }
         } else {
             game.updateGameLogic(delta);
         }
-
-        batch.end();
-
-
-        if (!startGame) {
-                if (Gdx.input.isTouched()) {
-                startGame = true;
-            }
-        }
     }
+
 
 
     @Override

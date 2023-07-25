@@ -27,10 +27,12 @@ public class Starter extends Game {
 	float armorTime2;
 	private boolean player1CanAttack = true;
 	private boolean player2CanAttack = false;
-
 	float attackCoolDown = 1.5f;
 	float player1AttackTimer = 0f;
 	float player2AttackTimer = attackCoolDown;
+	float player1TeleportTime = 0;
+	final float PLAYER1_TELEPORT_DELAY = 3.0f;
+
 
 	public boolean getGameScreen() {
 		return GameScreen;
@@ -65,10 +67,11 @@ public class Starter extends Game {
 		setScreen(new GameScreen(this));
 	}
 
-	float player1TeleportTime = 0;
-	final float PLAYER1_TELEPORT_DELAY = 3.0f;
+	public void render() {
+		super.render();
+	}
+	void updateGameLogic(float delta) {
 
-	public void render(float delta) {
 		super.render();
 		boolean isScreen = getGameScreen();
 
@@ -133,9 +136,7 @@ public class Starter extends Game {
 
 		batch.end();
 		updateGameLogic(delta);
-	}
 
-	void updateGameLogic(float delta) {
 		if (player1CanAttack) {
 			player1AttackTimer += delta;
 			if (player1AttackTimer >= attackCoolDown) {
