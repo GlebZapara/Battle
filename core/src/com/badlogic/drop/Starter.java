@@ -50,9 +50,7 @@ public class Starter extends Game {
 	public void render() {
 
 		if (!gameStarted) {
-			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-				gameStarted = true;
-			}
+			handleInput();
 		}
 
 		super.render();
@@ -198,6 +196,12 @@ public class Starter extends Game {
 					player1.setShouldAppear(true);
 				}
 			}
+		}
+	}
+
+	private void handleInput() {
+		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+			gameStarted = true;
 		}
 	}
 
