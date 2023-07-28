@@ -1,15 +1,12 @@
 package com.badlogic.drop;
 
-import com.badlogic.drop.Player1;
-import com.badlogic.drop.Player2;
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 
@@ -37,8 +34,8 @@ public class Starter extends ApplicationAdapter {
         batch = new SpriteBatch();
         random = new Random();
         font = new BitmapFont();
-        player1 = new Player1(27, 20, random.nextInt(100) + 1, 100, 100, "Player1");
-        player2 = new Player2(1601, 20, random.nextInt(100) + 1, 100, 100, "Player2");
+        player1 = new Player1(27, 0, random.nextInt(100) + 1, 100, 100, "Player1");
+        player2 = new Player2(1601, 0, random.nextInt(100) + 1, 100, 100, "Player2");
         totalDamage1 = 0;
         totalDamage2 = 0;
         damageTime1 = 0;
@@ -47,7 +44,6 @@ public class Starter extends ApplicationAdapter {
         healthTime2 = 0;
         armorTime1 = 0;
         armorTime2 = 0;
-
     }
 
     public void render() {
@@ -186,6 +182,8 @@ public class Starter extends ApplicationAdapter {
                 }
             }
         }
+        Graphics.DisplayMode displayMode = Gdx.graphics.getDisplayMode();
+        setFullscreenMode(displayMode);
     }
 
     public void dispose() {
@@ -214,6 +212,10 @@ public class Starter extends ApplicationAdapter {
         stage.addActor(player1);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+    }
+
+    boolean setFullscreenMode(Graphics.DisplayMode displayMode) {
+        return Gdx.graphics.setFullscreenMode(displayMode);
     }
 
     private void sleep(int time) {

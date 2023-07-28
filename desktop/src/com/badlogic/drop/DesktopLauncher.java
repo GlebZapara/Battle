@@ -8,7 +8,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("Battle");
-		config.setWindowedMode(1920, 1060);
+		config.setWindowedMode(1920, 1080);
 		new Lwjgl3Application(new Starter(), config);
 	}
 }
