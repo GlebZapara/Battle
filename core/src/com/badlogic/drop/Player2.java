@@ -3,9 +3,10 @@ package com.badlogic.drop;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 
-public class Player2 {
+public class Player2 extends Actor {
     final Vector2 position = new Vector2();
 
     public String name;
@@ -17,6 +18,8 @@ public class Player2 {
     public Player2(float x, float y, int attack, int health, int armor, String name) {
         texture = new Texture("Фиолетовый.png");
         position.set(x, y);
+        this.setX(x);
+        this.setY(y);
         this.attack = attack;
         this.health = health;
         this.armor = armor;

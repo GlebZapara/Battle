@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-
-public class Player1 {
+public class Player1 extends Actor {
     private final Vector2 position = new Vector2();
     private final Vector2 initialPosition = new Vector2();
 
@@ -23,6 +23,8 @@ public class Player1 {
     public Player1(float x, float y, int attack, int health, int armor, String name)  {
          texture = new Texture("Зеленый.png");
          position.set(x, y);
+        this.setX(x);
+        this.setY(y);
         this.attack = attack;
         this.health = health;
         this.armor = armor;
@@ -56,7 +58,7 @@ public class Player1 {
     }
 
     public void render(Batch batch) {
-         batch.draw(texture, position.x, position.y);
+         batch.draw(texture, getX(), getY());
      }
 
      public void dispose() {
