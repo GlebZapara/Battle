@@ -5,5 +5,9 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 
 eclipse.project.name = appName + "-core"
 dependencies {
-    implementation 'com.badlogicgames.gdx:gdx-backend-lwjgl3:1.9.12'
+    implementation 'com.badlogicgames.gdx:gdx:1.9.12'
+    implementation 'com.badlogicgames.gdx:gdx-box2d:1.9.12'
+
+    implementation "com.badlogicgames.gdx:gdx-backend-headless:1.9.12"
+    runtimeOnly "com.badlogicgames.gdx:gdx-platform:1.9.12:natives-desktop"
 }

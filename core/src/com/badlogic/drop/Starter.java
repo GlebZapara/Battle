@@ -228,4 +228,8 @@ public class Starter extends ApplicationAdapter {
             throw new RuntimeException(e);
         }
     }
+
+    public static void main(String[] args) {
+
+    }
 }
