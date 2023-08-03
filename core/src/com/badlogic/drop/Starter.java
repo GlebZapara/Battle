@@ -54,6 +54,9 @@ public class Starter extends ApplicationAdapter {
         batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         player1.render(batch);
         player2.render(batch);
+        if (!gameStarted) {
+            font.draw(batch, "TAP TO START", Gdx.graphics.getWidth() / 2f - 50, Gdx.graphics.getHeight() / 2f - 45);
+        }
 
         if (player2.health <= 0) {
             font.setColor(0, 0, 0, healthTime2);
@@ -134,12 +137,11 @@ public class Starter extends ApplicationAdapter {
                     totalDamage2 += damageDifference;
                     System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage.");
                 }
-//                sleep(1000);
                 if (player2.health <= 0) {
                     System.out.println(player1.name + " Wins!!!");
-//                    Texture backgroundTexture2 = new Texture(Gdx.files.internal("winner-1.png"));
-//                    batch.draw(backgroundTexture2, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
                 }
+                Texture backgroundTexture1 = new Texture(Gdx.files.internal("winner-1.png"));
+                batch.draw(backgroundTexture1, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
                 damage = random.nextInt(player2.attack) + 1;
                 if (player1.armor > 0) {
@@ -161,12 +163,11 @@ public class Starter extends ApplicationAdapter {
                     totalDamage1 += damageDifference;
                     System.out.println(player2.name + " attacks " + player1.name + " and deals " + damageDifference + " damage.");
                 }
-//                sleep(1000);
                 if (player1.health <= 0) {
                     System.out.println(player2.name + " Wins!!!");
-//                    Texture backgroundTexture2 = new Texture(Gdx.files.internal("winner-2.png"));
-//                    batch.draw(backgroundTexture2, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
                 }
+                Texture backgroundTexture2 = new Texture(Gdx.files.internal("winner-2.png"));
+                batch.draw(backgroundTexture2, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
                 if (player1.health > 0) {
                     player1.setX(player2.getX());
