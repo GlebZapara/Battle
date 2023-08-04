@@ -140,7 +140,9 @@ public class Starter extends ApplicationAdapter {
                 if (player2.health <= 0) {
                     System.out.println(player1.name + " Wins!!!");
 //                    Texture backgroundTexture1 = new Texture(Gdx.files.internal("winner-1.png"));
-//                    batch.draw(backgroundTexture1, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//                    batch.begin();
+//                    batch.draw(backgroundTexture1, 0, 50, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//                    batch.end();
                 }
 
                 damage = random.nextInt(player2.attack) + 1;
@@ -166,7 +168,9 @@ public class Starter extends ApplicationAdapter {
                 if (player1.health <= 0) {
                     System.out.println(player2.name + " Wins!!!");
 //                    Texture backgroundTexture2 = new Texture(Gdx.files.internal("winner-2.png"));
-//                    batch.draw(backgroundTexture2, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//                    batch.begin();
+//                    batch.draw(backgroundTexture2, 0, 50, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//                    batch.end();
                 }
 
 
