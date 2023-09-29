@@ -43,8 +43,8 @@ public class Starter extends ApplicationAdapter {
         batch = new SpriteBatch();
         random = new Random();
         font = new BitmapFont();
-        player1 = new Player1(27, 0, random.nextInt(100) + 1, 1000, 100, "Player1");
-        player2 = new Player2(1601, 0, random.nextInt(100) + 1, 1000, 100, "Player2");
+        player1 = new Player1(27, 0, random.nextInt(100) + 1, 100, 100, "Player1");
+        player2 = new Player2(1601, 0, random.nextInt(100) + 1, 100, 100, "Player2");
         sound = Gdx.audio.newSound((Gdx.files.internal("sound.mp3")));
         music = Gdx.audio.newMusic((Gdx.files.internal("music.mp3")));
         backgroundTexture = new Texture(Gdx.files.internal("background.png"));
