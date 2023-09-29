@@ -4,6 +4,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,6 +20,8 @@ public class Starter extends ApplicationAdapter {
     Player2 player2;
     Random random;
     BitmapFont font;
+    Sound sound;
+    Music music;
     int totalDamage1;
     int totalDamage2;
     float damageTime1;
@@ -26,16 +30,24 @@ public class Starter extends ApplicationAdapter {
     float healthTime2;
     float armorTime1;
     float armorTime2;
-    float player1TeleportTime = 0;
-    final float PLAYER1_TELEPORT_DELAY = 1.0f;
-    private boolean gameStarted = false;
+    private float screenDelayTime = 0;
+    private final float SCREEN_DELAY_DURATION = 1f;
+    private boolean gameStarter = false;
+    private boolean player1Wins = false;
+    private boolean player2Wins = false;
+    private Texture backgroundTexture;
+    private Texture backgroundTexture1;
+    private Texture backgroundTexture2;
 
     public void create() {
         batch = new SpriteBatch();
         random = new Random();
         font = new BitmapFont();
-        player1 = new Player1(27, 0, random.nextInt(100) + 1, 100, 100, "Player1");
-        player2 = new Player2(1601, 0, random.nextInt(100) + 1, 100, 100, "Player2");
+        player1 = new Player1(27, 0, random.nextInt(100) + 1, 1000, 100, "Player1");
+        player2 = new Player2(1601, 0, random.nextInt(100) + 1, 1000, 100, "Player2");
+        sound = Gdx.audio.newSound((Gdx.files.internal("sound.mp3")));
+        music = Gdx.audio.newMusic((Gdx.files.internal("music.mp3")));
+        backgroundTexture = new Texture(Gdx.files.internal("background.png"));
         totalDamage1 = 0;
         totalDamage2 = 0;
         damageTime1 = 0;
@@ -49,12 +61,17 @@ public class Starter extends ApplicationAdapter {
     public void render() {
 
         super.render();
-        Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
+
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            System.exit(0);
+        }
+
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         player1.render(batch);
         player2.render(batch);
-        if (!gameStarted) {
+
+        if (!gameStarter) {
             font.draw(batch, "TAP TO START", Gdx.graphics.getWidth() / 2f - 50, Gdx.graphics.getHeight() / 2f - 45);
         }
 
@@ -109,90 +126,126 @@ public class Starter extends ApplicationAdapter {
         font.draw(batch, "Armor: " + player1.armor, 20, 341);
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            gameStarted = true;
+            gameStarter = true;
         }
 
         batch.end();
 
-        if (gameStarted) {
+        if (gameStarter) {
+            music.play();
+
+            if (screenDelayTime > 0) {
+                screenDelayTime -= Gdx.graphics.getDeltaTime();
+                return;
+            }
+
             if (player1.health > 0 && player2.health > 0) {
                 int damage = random.nextInt(player1.attack) + 1;
                 int damageDifference;
+
                 if (player2.armor > 0) {
                     damageDifference = Math.min(player2.armor, damage);
                     player2.armor -= damageDifference;
                     totalDamage2 += damageDifference;
+                    sound.play();
+                    screenDelayTime = SCREEN_DELAY_DURATION;
                     healthTime1 = 1;
                     damageTime1 = 1;
                     armorTime2 = 1;
                     System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage to armor.");
                 } else {
+
                     damageDifference = damage;
+
                     if (player2.armor == 0) {
+                        sound.play();
                         healthTime1 = 1;
                         damageTime1 = 1;
                         armorTime2 = 1;
                     }
                     player2.health -= damageDifference;
                     totalDamage2 += damageDifference;
+                    screenDelayTime = SCREEN_DELAY_DURATION;
                     System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage.");
                 }
+
+                if (player1Wins) {
+                    backgroundTexture1 = new Texture(Gdx.files.internal("winner-1.png"));
+                    batch.begin();
+                    batch.draw(backgroundTexture1, 0, 50, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+                    batch.end();
+                }
+
                 if (player2.health <= 0) {
+                    player1Wins = true;
                     System.out.println(player1.name + " Wins!!!");
-//                    Texture backgroundTexture1 = new Texture(Gdx.files.internal("winner-1.png"));
-//                    batch.begin();
-//                    batch.draw(backgroundTexture1, 0, 50, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//                    batch.end();
+                    music.stop();
+                    return;
                 }
 
                 damage = random.nextInt(player2.attack) + 1;
+
                 if (player1.armor > 0) {
                     damageDifference = Math.min(player1.armor, damage);
                     player1.armor -= damageDifference;
                     totalDamage1 += damageDifference;
+                    sound.play();
+                    screenDelayTime = SCREEN_DELAY_DURATION;
                     healthTime2 = 1;
                     damageTime2 = 1;
                     armorTime1 = 1;
                     System.out.println(player2.name + " attacks " + player1.name + " and deals " + damageDifference + " damage to armor.");
                 } else {
+
                     damageDifference = damage;
+
                     if (player1.armor == 0) {
+                        sound.play();
                         healthTime2 = 1;
                         damageTime2 = 1;
                         armorTime1 = 1;
                     }
                     player1.health -= damageDifference;
                     totalDamage1 += damageDifference;
+                    screenDelayTime = SCREEN_DELAY_DURATION;
                     System.out.println(player2.name + " attacks " + player1.name + " and deals " + damageDifference + " damage.");
                 }
+
+                if (player2Wins) {
+                    backgroundTexture2 = new Texture(Gdx.files.internal("winner-2.png"));
+                    batch.begin();
+                    batch.draw(backgroundTexture2, 0, 50, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+                    batch.end();
+                }
+
                 if (player1.health <= 0) {
+                    player2Wins = true;
                     System.out.println(player2.name + " Wins!!!");
-//                    Texture backgroundTexture2 = new Texture(Gdx.files.internal("winner-2.png"));
-//                    batch.begin();
-//                    batch.draw(backgroundTexture2, 0, 50, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//                    batch.end();
+                    music.stop();
+                    return;
                 }
 
-
-                if (player1.health > 0) {
-                    player1.setX(player2.getX());
-                    player1.setY(player2.getY());
-                    batch.begin();
-                    player1.render(batch);
-                    sleep(500);
-                    batch.end();
-
-                    player1.setX(player1.getInitialX());
-                    player1.setY(player1.getInitialY());
-                    batch.begin();
-                    player1.render(batch);
-                    sleep(500);
-                    batch.end();
-                }
+//              if (player1.health > 0) {
+//                  player1.setX(player2.getX());
+//                  player1.setY(player2.getY());
+//                  batch.begin();
+//                  player1.render(batch);
+//                  sleep(500);
+//                  batch.end();
+//
+//                  player1.setX(player1.getInitialX());
+//                  player1.setY(player1.getInitialY());
+//                  batch.begin();
+//                  player1.render(batch);
+//                  sleep(500);
+//                  batch.end();
+//              }
             }
+
         }
         Graphics.DisplayMode displayMode = Gdx.graphics.getDisplayMode();
         setFullscreenMode(displayMode);
+        Gdx.graphics.setForegroundFPS(170);
     }
 
     public void dispose() {
@@ -203,39 +256,35 @@ public class Starter extends ApplicationAdapter {
         font.dispose();
     }
 
-    public void attackAction(Player1 player1, Player2 player2) {
-        Stage stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
-        MoveToAction moveAction1 = new MoveToAction();
-        moveAction1.setPosition(player2.getX(), player2.getY());
-        moveAction1.setDuration(500f);
-        player1.addAction(moveAction1);
-        stage.addActor(player1);
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
-
-        MoveToAction moveAction2 = new MoveToAction();
-        moveAction2.setPosition(player1.getX(), player1.getY());
-        moveAction2.setDuration(500f);
-        player1.addAction(moveAction2);
-        stage.addActor(player1);
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
-    }
+//    public void attackAction(Player1 player1, Player2 player2) {
+//        Stage stage = new Stage();
+//        Gdx.input.setInputProcessor(stage);
+//        MoveToAction moveAction1 = new MoveToAction();
+//        moveAction1.setPosition(player2.getX(), player2.getY());
+//        moveAction1.setDuration(500f);
+//        player1.addAction(moveAction1);
+//        stage.addActor(player1);
+//        stage.act(Gdx.graphics.getDeltaTime());
+//        stage.draw();
+//
+//        MoveToAction moveAction2 = new MoveToAction();
+//        moveAction2.setPosition(player1.getX(), player1.getY());
+//        moveAction2.setDuration(500f);
+//        player1.addAction(moveAction2);
+//        stage.addActor(player1);
+//        stage.act(Gdx.graphics.getDeltaTime());
+//        stage.draw();
+//    }
 
     void setFullscreenMode(Graphics.DisplayMode displayMode) {
         Gdx.graphics.setFullscreenMode(displayMode);
     }
 
-    private void sleep(int time) {
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void main(String[] args) {
-
-    }
+//    private void sleep(int time) {
+//        try {
+//            Thread.sleep(time);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }
