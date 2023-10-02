@@ -21,6 +21,7 @@ public class Starter extends ApplicationAdapter {
     Random random;
     BitmapFont font;
     Sound sound;
+    Sound sound2;
     Music music;
     int totalDamage1;
     int totalDamage2;
@@ -47,6 +48,7 @@ public class Starter extends ApplicationAdapter {
         player2 = new Player2(1601, 0, random.nextInt(100) + 1, 100, 100, "Player2");
         sound = Gdx.audio.newSound((Gdx.files.internal("sound.mp3")));
         music = Gdx.audio.newMusic((Gdx.files.internal("music.mp3")));
+        sound2 = Gdx.audio.newSound((Gdx.files.internal("sound2.mp3")));
         backgroundTexture = new Texture(Gdx.files.internal("background.png"));
         totalDamage1 = 0;
         totalDamage2 = 0;
@@ -56,6 +58,7 @@ public class Starter extends ApplicationAdapter {
         healthTime2 = 0;
         armorTime1 = 0;
         armorTime2 = 0;
+        music.setVolume(0.2f);
     }
 
     public void render() {
@@ -134,6 +137,10 @@ public class Starter extends ApplicationAdapter {
         if (gameStarter) {
             music.play();
 
+            if (player1Wins || player2Wins) {
+                music.stop();
+            }
+
             if (screenDelayTime > 0) {
                 screenDelayTime -= Gdx.graphics.getDeltaTime();
                 return;
@@ -147,7 +154,7 @@ public class Starter extends ApplicationAdapter {
                     damageDifference = Math.min(player2.armor, damage);
                     player2.armor -= damageDifference;
                     totalDamage2 += damageDifference;
-                    sound.play();
+                    sound.play(0.3f);
                     screenDelayTime = SCREEN_DELAY_DURATION;
                     healthTime1 = 1;
                     damageTime1 = 1;
@@ -158,7 +165,7 @@ public class Starter extends ApplicationAdapter {
                     damageDifference = damage;
 
                     if (player2.armor == 0) {
-                        sound.play();
+                        sound.play(0.3f);
                         healthTime1 = 1;
                         damageTime1 = 1;
                         armorTime2 = 1;
@@ -169,19 +176,18 @@ public class Starter extends ApplicationAdapter {
                     System.out.println(player1.name + " attacks " + player2.name + " and deals " + damageDifference + " damage.");
                 }
 
-                if (player1Wins) {
+                if (player2.health <= 0) {
+                    sound2.play(0.4f);
+                    player1Wins = true;
+                    System.out.println(player1.name + " Wins!!!");
+                    return;
+                } else if (player1Wins) {
                     backgroundTexture1 = new Texture(Gdx.files.internal("winner-1.png"));
                     batch.begin();
                     batch.draw(backgroundTexture1, 0, 50, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
                     batch.end();
                 }
 
-                if (player2.health <= 0) {
-                    player1Wins = true;
-                    System.out.println(player1.name + " Wins!!!");
-                    music.stop();
-                    return;
-                }
 
                 damage = random.nextInt(player2.attack) + 1;
 
@@ -189,7 +195,7 @@ public class Starter extends ApplicationAdapter {
                     damageDifference = Math.min(player1.armor, damage);
                     player1.armor -= damageDifference;
                     totalDamage1 += damageDifference;
-                    sound.play();
+                    sound.play(0.3f);
                     screenDelayTime = SCREEN_DELAY_DURATION;
                     healthTime2 = 1;
                     damageTime2 = 1;
@@ -200,7 +206,7 @@ public class Starter extends ApplicationAdapter {
                     damageDifference = damage;
 
                     if (player1.armor == 0) {
-                        sound.play();
+                        sound.play(0.3f);
                         healthTime2 = 1;
                         damageTime2 = 1;
                         armorTime1 = 1;
@@ -211,18 +217,16 @@ public class Starter extends ApplicationAdapter {
                     System.out.println(player2.name + " attacks " + player1.name + " and deals " + damageDifference + " damage.");
                 }
 
-                if (player2Wins) {
+                if (player1.health <= 0) {
+                    sound2.play(0.4f);
+                    player2Wins = true;
+                    System.out.println(player2.name + " Wins!!!");
+                    return;
+                } else if (player2Wins) {
                     backgroundTexture2 = new Texture(Gdx.files.internal("winner-2.png"));
                     batch.begin();
                     batch.draw(backgroundTexture2, 0, 50, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
                     batch.end();
-                }
-
-                if (player1.health <= 0) {
-                    player2Wins = true;
-                    System.out.println(player2.name + " Wins!!!");
-                    music.stop();
-                    return;
                 }
 
 //              if (player1.health > 0) {
@@ -246,6 +250,7 @@ public class Starter extends ApplicationAdapter {
         Graphics.DisplayMode displayMode = Gdx.graphics.getDisplayMode();
         setFullscreenMode(displayMode);
         Gdx.graphics.setForegroundFPS(170);
+        Gdx.graphics.setVSync(true);
     }
 
     public void dispose() {
