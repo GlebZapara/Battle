@@ -14,11 +14,10 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-
 import java.awt.Font;
 import java.util.Random;
 
-public class Starter extends Game {
+public class Starter extends ApplicationAdapter {
     SpriteBatch batch;
     Player1 player1;
     Player2 player2;
