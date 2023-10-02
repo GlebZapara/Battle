@@ -1,6 +1,7 @@
 package com.badlogic.drop;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
@@ -9,17 +10,22 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 
+import java.awt.Font;
 import java.util.Random;
 
-public class Starter extends ApplicationAdapter {
+public class Starter extends Game {
     SpriteBatch batch;
     Player1 player1;
     Player2 player2;
     Random random;
     BitmapFont font;
+//    FreeTypeFontGenerator generator;
+//    BitmapFont customFont;
     Sound sound;
     Sound sound2;
     Music music;
@@ -49,6 +55,10 @@ public class Starter extends ApplicationAdapter {
         sound = Gdx.audio.newSound((Gdx.files.internal("sound.mp3")));
         music = Gdx.audio.newMusic((Gdx.files.internal("music.mp3")));
         sound2 = Gdx.audio.newSound((Gdx.files.internal("sound2.mp3")));
+//        generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
+//        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+//        parameter.size = 24;
+//        customFont = generator.generateFont(parameter);
         backgroundTexture = new Texture(Gdx.files.internal("background.png"));
         totalDamage1 = 0;
         totalDamage2 = 0;
@@ -58,7 +68,11 @@ public class Starter extends ApplicationAdapter {
         healthTime2 = 0;
         armorTime1 = 0;
         armorTime2 = 0;
-        music.setVolume(0.2f);
+        music.setVolume(0.3f);
+        Graphics.DisplayMode displayMode = Gdx.graphics.getDisplayMode();
+        setFullscreenMode(displayMode);
+        Gdx.graphics.setForegroundFPS(170);
+        Gdx.graphics.setVSync(true);
     }
 
     public void render() {
@@ -247,10 +261,6 @@ public class Starter extends ApplicationAdapter {
             }
 
         }
-        Graphics.DisplayMode displayMode = Gdx.graphics.getDisplayMode();
-        setFullscreenMode(displayMode);
-        Gdx.graphics.setForegroundFPS(170);
-        Gdx.graphics.setVSync(true);
     }
 
     public void dispose() {
@@ -259,6 +269,7 @@ public class Starter extends ApplicationAdapter {
         player1.dispose();
         player2.dispose();
         font.dispose();
+//        generator.dispose();
     }
 
 //    public void attackAction(Player1 player1, Player2 player2) {
