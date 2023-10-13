@@ -23,7 +23,7 @@ public class Starter extends ApplicationAdapter {
     Player2 player2;
     Random random;
     BitmapFont font;
-//    FreeTypeFontGenerator generator;
+    //    FreeTypeFontGenerator generator;
 //    BitmapFont customFont;
     Sound sound;
     Sound sound2;
