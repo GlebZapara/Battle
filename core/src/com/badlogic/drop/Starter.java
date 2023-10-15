@@ -262,7 +262,6 @@ public class Starter extends ApplicationAdapter {
         player1.dispose();
         player2.dispose();
         font.dispose();
-//        generator.dispose();
     }
 
     void fullScreen() {

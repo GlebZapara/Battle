@@ -10,6 +10,5 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.useVsync(true);
 		config.setTitle("Hammer");
-		new Lwjgl3Application(new Starter(), config);
 	}
 }
