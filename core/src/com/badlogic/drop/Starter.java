@@ -14,8 +14,10 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.tools.bmfont.BitmapFontWriter;
 import java.awt.Font;
 import java.util.Random;
+
 
 public class Starter extends ApplicationAdapter {
     SpriteBatch batch;
@@ -23,8 +25,6 @@ public class Starter extends ApplicationAdapter {
     Player2 player2;
     Random random;
     BitmapFont font;
-//    FreeTypeFontGenerator generator;
-//    BitmapFont customFont;
     Sound sound;
     Sound sound2;
     Music music;
@@ -48,16 +48,13 @@ public class Starter extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         random = new Random();
-        font = new BitmapFont();
-        player1 = new Player1(27, 0, random.nextInt(100) + 1, 100, 100, "Player1");
-        player2 = new Player2(1601, 0, random.nextInt(100) + 1, 100, 100, "Player2");
+        font = new BitmapFont(Gdx.files.internal("Font8.fnt"));
+        font.getData().setScale(0.5F);
+        player1 = new Player1(27, 0, random.nextInt(100) + 1, 1000, 100, "Player1");
+        player2 = new Player2(1601, 0, random.nextInt(100) + 1, 1000, 100, "Player2");
         sound = Gdx.audio.newSound((Gdx.files.internal("sound.mp3")));
         music = Gdx.audio.newMusic((Gdx.files.internal("music.mp3")));
         sound2 = Gdx.audio.newSound((Gdx.files.internal("sound2.mp3")));
-//        generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
-//        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-//        parameter.size = 24;
-//        customFont = generator.generateFont(parameter);
         backgroundTexture = new Texture(Gdx.files.internal("background.png"));
         totalDamage1 = 0;
         totalDamage2 = 0;
@@ -98,7 +95,7 @@ public class Starter extends ApplicationAdapter {
         } else {
             font.setColor(1, 1, 1, 1);
         }
-        font.draw(batch, "Health: " + player2.health, 1823, 361);
+        font.draw(batch, "Health: " + player2.health, 1790, 361);
 
         if (player1.health <= 0) {
             font.setColor(0, 0, 0, healthTime1);
@@ -120,11 +117,11 @@ public class Starter extends ApplicationAdapter {
 
         if (damageTime1 >= 0) {
             font.setColor(1, 0, 0, damageTime1);
-            font.draw(batch, "Damage: " + totalDamage1, 1823, 381);
+            font.draw(batch, "Damage: " + totalDamage1, 1790, 381);
             font.setColor(1, 1, 1, 1);
         } else {
             font.setColor(1, 1, 1, 1);
-            font.draw(batch, "Damage: " + totalDamage1, 1823, 381);
+            font.draw(batch, "Damage: " + totalDamage1, 1790, 381);
         }
 
         if (armorTime2 > 0) {
@@ -132,7 +129,7 @@ public class Starter extends ApplicationAdapter {
         } else {
             font.setColor(1, 1, 1, 1);
         }
-        font.draw(batch, "Armor: " + player2.armor, 1823, 341);
+        font.draw(batch, "Armor: " + player2.armor, 1790, 341);
 
         if (armorTime1 > 0) {
             font.setColor(0, 0, 1, armorTime1);
