@@ -65,14 +65,11 @@ public class Starter extends ApplicationAdapter {
         armorTime1 = 0;
         armorTime2 = 0;
         music.setVolume(0.3f);
-        Graphics.DisplayMode displayMode = Gdx.graphics.getDisplayMode();
-        setFullscreenMode(displayMode);
         Gdx.graphics.setForegroundFPS(170);
         Gdx.graphics.setVSync(true);
     }
 
     public void render() {
-
         super.render();
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
@@ -255,8 +252,8 @@ public class Starter extends ApplicationAdapter {
 //                  batch.end();
 //              }
             }
-
         }
+        fullScreen();
     }
 
     public void dispose() {
@@ -266,6 +263,11 @@ public class Starter extends ApplicationAdapter {
         player2.dispose();
         font.dispose();
 //        generator.dispose();
+    }
+
+    void fullScreen() {
+        Graphics.DisplayMode displayMode = Gdx.graphics.getDisplayMode();
+        Gdx.graphics.setFullscreenMode(displayMode);
     }
 
 //    public void attackAction(Player1 player1, Player2 player2) {
@@ -287,10 +289,6 @@ public class Starter extends ApplicationAdapter {
 //        stage.act(Gdx.graphics.getDeltaTime());
 //        stage.draw();
 //    }
-
-    void setFullscreenMode(Graphics.DisplayMode displayMode) {
-        Gdx.graphics.setFullscreenMode(displayMode);
-    }
 
 //    private void sleep(int time) {
 //        try {
