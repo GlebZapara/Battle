@@ -17,8 +17,8 @@ public class Player1 extends Actor {
     public int armor;
     public String damage;
     private boolean shouldAppear;
-    private float initialXx;
-    private float initialYy;
+    float initialXx;
+    float initialYy;
 
     public Player1(float x, float y, int attack, int health, int armor, String name)  {
          texture = new Texture("Зеленый.png");
