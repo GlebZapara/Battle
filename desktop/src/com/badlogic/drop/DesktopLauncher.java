@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		config.setTitle("Hammer");
 		config.setWindowIcon("free-icon-thor-hammer-9650896.png");
 		config.setWindowedMode(1920, 1080);
-		new Lwjgl3Application(new Starter(), config);
+		new Lwjgl3Application(new scene2dui(), config);
 	}
 }
 

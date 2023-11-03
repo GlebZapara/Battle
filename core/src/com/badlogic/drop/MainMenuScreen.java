@@ -1,7 +1,5 @@
 package com.badlogic.drop;
 
-import static com.badlogic.gdx.math.MathUtils.random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -24,7 +22,7 @@ public class MainMenuScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1920, 1080);
         batch = new SpriteBatch();
-        font = new BitmapFont();
+        font = new BitmapFont(Gdx.files.internal("Razer.fnt"));
         Gdx.graphics.setForegroundFPS(170);
         Gdx.graphics.setVSync(true);
         backgroundTexture = new Texture(Gdx.files.internal("Lobby.png"));
@@ -42,7 +40,7 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         game.batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//        game.font.draw(game.batch, "START", 600, 356);
+        font.draw(game.batch, "START", 600, 356);
 
         if (player1 != null) {
             player1.render(game.batch);
