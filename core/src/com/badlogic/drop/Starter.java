@@ -9,12 +9,9 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-
-
 public class Starter extends Game {
     SpriteBatch batch;
     BitmapFont font;
-
 
     public void create() {
         cursor();
@@ -48,6 +45,4 @@ public class Starter extends Game {
         batch = new SpriteBatch();
         font = new BitmapFont(Gdx.files.internal("Font8.fnt"));
     }
-
-
 }

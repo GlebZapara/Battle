@@ -34,8 +34,7 @@ public class GameScreen implements Screen {
     private boolean player1Wins = false;
     private boolean player2Wins = false;
     Texture backgroundTexture;
-    private Texture backgroundTexture1;
-    private Texture backgroundTexture2;
+
 
     public GameScreen(final Starter gam) {
         this.game = gam;
@@ -57,7 +56,7 @@ public class GameScreen implements Screen {
         healthTime2 = 0;
         armorTime1 = 0;
         armorTime2 = 0;
-        music.setVolume(0.3f);
+        music.setVolume(0);
         Gdx.graphics.setForegroundFPS(170);
         Gdx.graphics.setVSync(true);
     }
@@ -179,11 +178,6 @@ public class GameScreen implements Screen {
                     sound2.play(0.4f);
                     player1Wins = true;
                     System.out.println(player1.name + " Wins!!!");
-                } else if (player1Wins) {
-                    backgroundTexture1 = new Texture(Gdx.files.internal("winner-1.png"));
-                    batch.begin();
-                    batch.draw(backgroundTexture1, 0, 50, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                    batch.end();
                 }
 
                 damage = random.nextInt(player2.attack) + 1;
@@ -217,11 +211,6 @@ public class GameScreen implements Screen {
                     sound2.play(0.4f);
                     player2Wins = true;
                     System.out.println(player2.name + " Wins!!!");
-                } else if (player2Wins) {
-                    backgroundTexture2 = new Texture(Gdx.files.internal("winner-2.png"));
-                    batch.begin();
-                    batch.draw(backgroundTexture2, 0, 50, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                    batch.end();
                 }
             }
         }
@@ -253,13 +242,10 @@ public class GameScreen implements Screen {
         sound.dispose();
         sound2.dispose();
         backgroundTexture.dispose();
-        if (backgroundTexture1 != null) {
-            backgroundTexture1.dispose();
-        }
-        if (backgroundTexture2 != null) {
-            backgroundTexture2.dispose();
-        }
+
     }
+
+
 
 //    public void attackAction(Player1 player1, Player2 player2) {
 //        Stage stage = new Stage();
