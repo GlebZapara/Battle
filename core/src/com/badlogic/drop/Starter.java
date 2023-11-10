@@ -56,7 +56,7 @@ public class Starter extends Game {
 
     public void cursor() {
         Pixmap pixmap = new Pixmap(Gdx.files.internal("Cursor.png"));
-        int xHotspot = 25, yHotspot = 25;
+        int xHotspot = 0, yHotspot = 0;
         Cursor cursor = Gdx.graphics.newCursor(pixmap, xHotspot, yHotspot);
         pixmap.dispose();
         Gdx.graphics.setCursor(cursor);
