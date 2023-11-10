@@ -17,14 +17,9 @@ public class scene2dui extends ApplicationAdapter {
     @Override
     public void create() {
         skin = new Skin(Gdx.files.internal("uiskin.json"));
-        Texture buttonUpTexture = new Texture(Gdx.files.internal("my-button-up.png"));
-        Texture buttonDownTexture = new Texture(Gdx.files.internal("my-button-down.png"));
-
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-        final TextButton button = new TextButton("Click Me", skin, "default");
-        button.setWidth(200);
-        button.setHeight(50);
+        final TextButton button = new TextButton("Start", skin, "default");
         final Dialog dialog = new Dialog("Click Message", skin);
         stage.addActor(button);
         Gdx.input.setInputProcessor(stage);
@@ -35,5 +30,13 @@ public class scene2dui extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+    }
+
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
+
+    public void dispose() {
+        stage.dispose();
     }
 }
