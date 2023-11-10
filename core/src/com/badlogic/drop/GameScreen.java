@@ -56,7 +56,7 @@ public class GameScreen implements Screen {
         healthTime2 = 0;
         armorTime1 = 0;
         armorTime2 = 0;
-        music.setVolume(0);
+        music.setVolume(0.3f);
         Gdx.graphics.setForegroundFPS(170);
         Gdx.graphics.setVSync(true);
     }
