@@ -19,21 +19,20 @@ public class Starter extends Game {
     private ServerSocket serverSocket;
 
     public void create() {
-        cursor();
-
         if (isAppAlreadyRunning(this)) {
             this.setScreen(new ErrorScreen(this));
         } else {
             new Thread(this::startServer).start();
             this.setScreen(new MainMenuScreen(this));
         }
+        cursor();
     }
 
     public void render() {
         super.render();
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
+            System.exit(0);
         }
 
         fullScreen();

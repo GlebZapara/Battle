@@ -8,20 +8,28 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MainMenuScreen implements Screen {
     Player1 player1;
     final Starter game;
     OrthographicCamera camera;
-     SpriteBatch batch;
-     BitmapFont font;
-     Texture backgroundTexture;
+    SpriteBatch batch;
+    BitmapFont font;
+    Texture backgroundTexture;
+    Skin skin;
+    Stage stage;
 
     public MainMenuScreen(Starter gam) {
         this.game = gam;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1920, 1080);
         batch = new SpriteBatch();
+        button();
         font = new BitmapFont(Gdx.files.internal("Razer.fnt"));
         Gdx.graphics.setForegroundFPS(170);
         Gdx.graphics.setVSync(true);
@@ -40,7 +48,9 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         game.batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        font.draw(game.batch, "START", 600, 356);
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
+
 
         if (player1 != null) {
             player1.render(game.batch);
@@ -57,7 +67,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -80,5 +90,16 @@ public class MainMenuScreen implements Screen {
         backgroundTexture.dispose();
         font.dispose();
         batch.dispose();
+        stage.dispose();
+    }
+
+    public void button() {
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+        final TextButton button = new TextButton("Start", skin, "default");
+        button.setPosition(960, 540);
+        stage.addActor(button);
+        Gdx.input.setInputProcessor(stage);
     }
 }
