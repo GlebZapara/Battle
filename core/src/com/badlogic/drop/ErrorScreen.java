@@ -23,12 +23,12 @@ public class ErrorScreen extends ScreenAdapter {
     }
 
     private void showErrorDialog() {
-        Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
-        Dialog dialog = new Dialog("Game Instance Warning", skin);
+        final Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
+        final Dialog dialog = new Dialog("Game Instance Warning", skin);
         dialog.text("Another instance of the game is already running.");
-
         TextButton exitButton = new TextButton("Exit", skin);
         dialog.button(exitButton, true);
+        dialog.setMovable(false);
 
         exitButton.addListener(new ClickListener() {
             @Override
