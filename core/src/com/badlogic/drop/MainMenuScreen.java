@@ -50,16 +50,16 @@ public class MainMenuScreen implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-//        game.batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
-
+        game.batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         if (player1 != null) {
             player1.render(game.batch);
         }
 
         game.batch.end();
+
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             game.setScreen(new GameScreen(game));
@@ -103,7 +103,7 @@ public class MainMenuScreen implements Screen {
 
         final TextButton button = new TextButton("Start", skin, "default");
 
-        button.setPosition(Gdx.graphics.getWidth() / 2f - 50, Gdx.graphics.getHeight() / 2f - 45);
+        button.setPosition(948, 540);
         stage.addActor(button);
 
         button.addListener(new ClickListener() {
