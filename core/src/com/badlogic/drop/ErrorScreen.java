@@ -46,6 +46,8 @@ public class ErrorScreen extends ScreenAdapter {
         stage.addActor(dialog);
         Gdx.input.setInputProcessor(stage);
         dialog.show(stage);
+
+        dialog.setPosition(790, Gdx.graphics.getHeight() / 2 - 432);
     }
 
     @Override
