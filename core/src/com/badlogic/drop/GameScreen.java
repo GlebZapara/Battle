@@ -57,7 +57,7 @@ public class GameScreen implements Screen {
         armorTime1 = 0;
         armorTime2 = 0;
         music.setVolume(0.3f);
-        Gdx.graphics.setForegroundFPS(170);
+        Gdx.graphics.setForegroundFPS(60);
         Gdx.graphics.setVSync(true);
     }
 
@@ -152,7 +152,7 @@ public class GameScreen implements Screen {
                     damageDifference = Math.min(player2.armor, damage);
                     player2.armor -= damageDifference;
                     totalDamage2 += damageDifference;
-                    sound.play(0.3f);
+                    sound.play(0.2f);
                     screenDelayTime = SCREEN_DELAY_DURATION;
                     healthTime1 = 1;
                     damageTime1 = 1;
@@ -163,7 +163,7 @@ public class GameScreen implements Screen {
                     damageDifference = damage;
 
                     if (player2.armor == 0) {
-                        sound.play(0.3f);
+                        sound.play(0.2f);
                         healthTime1 = 1;
                         damageTime1 = 1;
                         armorTime2 = 1;
@@ -186,7 +186,7 @@ public class GameScreen implements Screen {
                     damageDifference = Math.min(player1.armor, damage);
                     player1.armor -= damageDifference;
                     totalDamage1 += damageDifference;
-                    sound.play(0.3f);
+                    sound.play(0.2f);
                     screenDelayTime = SCREEN_DELAY_DURATION;
                     healthTime2 = 1;
                     damageTime2 = 1;
@@ -196,7 +196,7 @@ public class GameScreen implements Screen {
                     damageDifference = damage;
 
                     if (player1.armor == 0) {
-                        sound.play(0.3f);
+                        sound.play(0.2f);
                         healthTime2 = 1;
                         damageTime2 = 1;
                         armorTime1 = 1;

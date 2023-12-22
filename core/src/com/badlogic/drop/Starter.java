@@ -6,7 +6,6 @@ import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.io.IOException;
@@ -16,7 +15,6 @@ import java.net.Socket;
 
 public class Starter extends Game {
     SpriteBatch batch;
-    BitmapFont font;
     private ServerSocket serverSocket;
 
     public void create() {
@@ -61,7 +59,6 @@ public class Starter extends Game {
         pixmap.dispose();
         Gdx.graphics.setCursor(cursor);
         batch = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.internal("Font8.fnt"));
     }
 
     private boolean isAppAlreadyRunning(Starter game) {
