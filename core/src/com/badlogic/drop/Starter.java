@@ -24,6 +24,16 @@ public class Starter extends Game {
             new Thread(this::startServer).start();
             this.setScreen(new MainMenuScreen(this));
         }
+//        if (isAppAlreadyRunning(this)) {
+//            setScreen(new ErrorScreen(this));
+//        } else {
+//            try {
+//                new Thread(this::startServer).start();
+//                setScreen(new MainMenuScreen(this));
+//            } catch (Throwable throwable) {
+//                System.exit(1);
+//            }
+//        }
         cursor();
     }
 
