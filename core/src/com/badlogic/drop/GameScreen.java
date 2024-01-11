@@ -8,6 +8,13 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+
 import java.util.Random;
 
 public class GameScreen implements Screen {
@@ -20,6 +27,9 @@ public class GameScreen implements Screen {
     Sound sound;
     Sound sound2;
     Music music;
+    Texture backgroundTexture;
+    Skin skin;
+    Stage stage;
     private int totalDamage1;
     private int totalDamage2;
     private float damageTime1;
@@ -33,8 +43,6 @@ public class GameScreen implements Screen {
     private boolean gameStarter = false;
     private boolean player1Wins = false;
     private boolean player2Wins = false;
-    Texture backgroundTexture;
-
 
     public GameScreen(final Starter gam) {
         this.game = gam;
@@ -56,6 +64,7 @@ public class GameScreen implements Screen {
         healthTime2 = 0;
         armorTime1 = 0;
         armorTime2 = 0;
+//        button();
         music.setVolume(0.3f);
         Gdx.graphics.setForegroundFPS(60);
         Gdx.graphics.setVSync(true);
@@ -131,6 +140,9 @@ public class GameScreen implements Screen {
         }
 
         batch.end();
+
+//        stage.act(Gdx.graphics.getDeltaTime());
+//       stage.draw();
 
         if (gameStarter) {
             music.play();
@@ -232,6 +244,25 @@ public class GameScreen implements Screen {
     public void hide() {
     }
 
+//    public void button() {
+//        skin = new Skin(Gdx.files.internal("uiskin.json"));
+//        stage = new Stage(new ScreenViewport());
+//        Gdx.input.setInputProcessor(stage);
+//
+//        final TextButton button = new TextButton("Start", skin, "default");
+//
+//        button.setPosition(948, 540);
+//        stage.addActor(button);
+//
+//        button.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+////                game.setScreen(new GameScreen(game));
+//                dispose();
+//            }
+//        });
+//    }
+
     @Override
     public void dispose() {
         batch.dispose();
@@ -242,7 +273,6 @@ public class GameScreen implements Screen {
         sound.dispose();
         sound2.dispose();
         backgroundTexture.dispose();
-
     }
 
 

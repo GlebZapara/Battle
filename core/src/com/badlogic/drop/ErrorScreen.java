@@ -24,6 +24,8 @@ public class ErrorScreen extends ScreenAdapter {
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         showErrorDialog();
+        Gdx.graphics.setForegroundFPS(60);
+        Gdx.graphics.setVSync(true);
     }
 
     private void showErrorDialog() {
