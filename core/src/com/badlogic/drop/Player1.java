@@ -19,8 +19,10 @@ public class Player1 extends Actor {
     private boolean shouldAppear;
     float initialXx;
     float initialYy;
+    private float width;
+    private float height;
 
-    public Player1(float x, float y, int attack, int health, int armor, String name)  {
+    public Player1(float x, float y, float width, float height, int attack, int health, int armor, String name) {
          texture = new Texture("Зеленый.png");
          position.set(x, y);
         this.setX(x);
@@ -32,6 +34,8 @@ public class Player1 extends Actor {
         initialPosition.set(x, y);
         this.initialXx = x;
         this.initialYy = y;
+        this.width = width;
+        this.height = height;
     }
     public float getInitialX() {
         return initialXx;
@@ -58,7 +62,7 @@ public class Player1 extends Actor {
     }
 
     public void render(Batch batch) {
-         batch.draw(texture, getX(), getY());
+        batch.draw(texture, getX(), getY(), width, height);
      }
 
      public void dispose() {

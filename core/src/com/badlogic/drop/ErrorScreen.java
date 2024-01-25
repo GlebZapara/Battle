@@ -36,7 +36,7 @@ public class ErrorScreen extends ScreenAdapter {
         dialog.button(exitButton, true);
         dialog.setMovable(false);
         batch = new SpriteBatch();
-        backgroundTexture = new Texture(Gdx.files.internal("Lobby.png"));
+        backgroundTexture = new Texture(Gdx.files.internal("Lobby3.png"));
 
         exitButton.addListener(new ClickListener() {
             @Override

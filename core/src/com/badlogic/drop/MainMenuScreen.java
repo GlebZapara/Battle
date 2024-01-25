@@ -35,6 +35,7 @@ public class MainMenuScreen implements Screen {
         Gdx.graphics.setForegroundFPS(60);
         Gdx.graphics.setVSync(true);
         backgroundTexture = new Texture(Gdx.files.internal("Lobby.png"));
+        player1 = new Player1(880, 320, 200, 200, 1, 1000, 100, "Player1");
     }
 
     @Override

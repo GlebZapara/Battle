@@ -50,7 +50,7 @@ public class GameScreen implements Screen {
         random = new Random();
         font = new BitmapFont(Gdx.files.internal("Font8.fnt"));
         font.getData().setScale(0.5F);
-        player1 = new Player1(27, 0, random.nextInt(100) + 1, 1000, 100, "Player1");
+        player1 = new Player1(27, 0, 291, 321, random.nextInt(100) + 1, 1000, 100, "Player1");
         player2 = new Player2(1601, 0, random.nextInt(100) + 1, 1000, 100, "Player2");
         sound = Gdx.audio.newSound(Gdx.files.internal("sound.mp3"));
         music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
@@ -68,6 +68,7 @@ public class GameScreen implements Screen {
         music.setVolume(0.3f);
         Gdx.graphics.setForegroundFPS(60);
         Gdx.graphics.setVSync(true);
+
     }
 
     @Override
