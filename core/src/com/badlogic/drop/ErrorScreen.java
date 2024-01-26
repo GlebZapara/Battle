@@ -18,6 +18,7 @@ public class ErrorScreen extends ScreenAdapter {
     Stage stage;
     SpriteBatch batch;
     Texture backgroundTexture;
+    Dialog dialog;
 
     public ErrorScreen(Starter gam) {
         this.game = gam;
@@ -30,7 +31,7 @@ public class ErrorScreen extends ScreenAdapter {
 
     private void showErrorDialog() {
         final Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
-        final Dialog dialog = new Dialog("Game Instance Warning", skin);
+        dialog = new Dialog("Game Instance Warning", skin);
         dialog.text("Another instance of the game is already running.");
         TextButton exitButton = new TextButton("Exit", skin);
         dialog.button(exitButton, true);
@@ -48,8 +49,6 @@ public class ErrorScreen extends ScreenAdapter {
         stage.addActor(dialog);
         Gdx.input.setInputProcessor(stage);
         dialog.show(stage);
-
-        dialog.setPosition(777, Gdx.graphics.getHeight() / 2 - 432);
     }
 
     @Override
@@ -64,6 +63,7 @@ public class ErrorScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
+        dialog.setPosition(777, Gdx.graphics.getHeight() / 2 - 432);
     }
 
     @Override
