@@ -26,6 +26,7 @@ public class GameScreen implements Screen {
     BitmapFont font;
     Sound sound;
     Sound sound2;
+    Sound sound3;
     Music music;
     Texture backgroundTexture;
     Skin skin;
@@ -55,6 +56,7 @@ public class GameScreen implements Screen {
         sound = Gdx.audio.newSound(Gdx.files.internal("sound.mp3"));
         music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
         sound2 = Gdx.audio.newSound(Gdx.files.internal("sound2.mp3"));
+        sound3 = Gdx.audio.newSound(Gdx.files.internal("sound3.mp3"));
         backgroundTexture = new Texture(Gdx.files.internal("background.png"));
         totalDamage1 = 0;
         totalDamage2 = 0;
@@ -132,10 +134,6 @@ public class GameScreen implements Screen {
         }
         font.draw(batch, "Armor: " + player1.armor, 20, 341);
 
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            gameStarter = true;
-        }
-
         batch.end();
 
         if (gameStarter) {
@@ -158,6 +156,7 @@ public class GameScreen implements Screen {
                     damageDifference = Math.min(player2.armor, damage);
                     player2.armor -= damageDifference;
                     totalDamage2 += damageDifference;
+                    sound3.play(0.2f);
                     sound.play(0.2f);
                     screenDelayTime = SCREEN_DELAY_DURATION;
                     healthTime1 = 1;
@@ -169,6 +168,7 @@ public class GameScreen implements Screen {
                     damageDifference = damage;
 
                     if (player2.armor == 0) {
+                        sound3.play(0.2f);
                         sound.play(0.2f);
                         healthTime1 = 1;
                         damageTime1 = 1;
@@ -251,11 +251,8 @@ public class GameScreen implements Screen {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                gameStarter = true;
                 button.remove();
-                if (!gameStarter) {
-                    gameStarter = true;
-                    game.setScreen(new GameScreen(game));
-                }
             }
         });
     }
