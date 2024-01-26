@@ -1,7 +1,6 @@
 package com.badlogic.drop;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MainMenuScreen implements Screen {
-    Player1 player1;
     final Starter game;
     OrthographicCamera camera;
     SpriteBatch batch;
@@ -30,12 +28,11 @@ public class MainMenuScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1920, 1080);
         batch = new SpriteBatch();
-        button();
         font = new BitmapFont(Gdx.files.internal("Razer.fnt"));
+        backgroundTexture = new Texture(Gdx.files.internal("Lobby2.png"));
+        button();
         Gdx.graphics.setForegroundFPS(60);
         Gdx.graphics.setVSync(true);
-        backgroundTexture = new Texture(Gdx.files.internal("Lobby.png"));
-        player1 = new Player1(880, 320, 200, 200, 1, 1000, 100, "Player1");
     }
 
     @Override
@@ -50,14 +47,8 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         game.batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-        if (player1 != null) {
-            player1.render(game.batch);
-        }
-
         game.batch.end();
 
-        stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
 
@@ -97,7 +88,7 @@ public class MainMenuScreen implements Screen {
 
         final TextButton button = new TextButton("Start", skin, "default");
 
-        button.setPosition(948, 540);
+        button.setPosition(945, 540);
         stage.addActor(button);
 
         button.addListener(new ClickListener() {

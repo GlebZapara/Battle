@@ -64,11 +64,10 @@ public class GameScreen implements Screen {
         healthTime2 = 0;
         armorTime1 = 0;
         armorTime2 = 0;
-//        button();
+        button();
         music.setVolume(0.3f);
         Gdx.graphics.setForegroundFPS(60);
         Gdx.graphics.setVSync(true);
-
     }
 
     @Override
@@ -81,10 +80,7 @@ public class GameScreen implements Screen {
         batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         player1.render(batch);
         player2.render(batch);
-
-        if (!gameStarter) {
-            font.draw(batch, "TAP TO START", Gdx.graphics.getWidth() / 2f - 50, Gdx.graphics.getHeight() / 2f - 45);
-        }
+        stage.draw();
 
         if (player2.health <= 0) {
             font.setColor(0, 0, 0, healthTime2);
@@ -141,9 +137,6 @@ public class GameScreen implements Screen {
         }
 
         batch.end();
-
-//        stage.act(Gdx.graphics.getDeltaTime());
-//       stage.draw();
 
         if (gameStarter) {
             music.play();
@@ -245,24 +238,27 @@ public class GameScreen implements Screen {
     public void hide() {
     }
 
-//    public void button() {
-//        skin = new Skin(Gdx.files.internal("uiskin.json"));
-//        stage = new Stage(new ScreenViewport());
-//        Gdx.input.setInputProcessor(stage);
-//
-//        final TextButton button = new TextButton("Start", skin, "default");
-//
-//        button.setPosition(948, 540);
-//        stage.addActor(button);
-//
-//        button.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-////                game.setScreen(new GameScreen(game));
-//                dispose();
-//            }
-//        });
-//    }
+    public void button() {
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+
+        final TextButton button = new TextButton("TAP TO START", skin, "default");
+
+        button.setPosition(Gdx.graphics.getWidth() / 2f - 50, Gdx.graphics.getHeight() / 2f - 65);
+        stage.addActor(button);
+
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                button.remove();
+                if (!gameStarter) {
+                    gameStarter = true;
+                    game.setScreen(new GameScreen(game));
+                }
+            }
+        });
+    }
 
     @Override
     public void dispose() {
@@ -275,7 +271,6 @@ public class GameScreen implements Screen {
         sound2.dispose();
         backgroundTexture.dispose();
     }
-
 
 
 //    public void attackAction(Player1 player1, Player2 player2) {
