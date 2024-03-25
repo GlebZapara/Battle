@@ -19,20 +19,20 @@ public class Starter extends Game {
 
     public void create() {
         if (isAppAlreadyRunning(this)) {
-            this.setScreen(new ErrorScreen(this));
+            setScreen(new ErrorScreen(this));
         } else {
-            new Thread(this::startServer).start();
-            this.setScreen(new MainMenuScreen(this));
+            try {
+                new Thread(this::startServer).start();
+                setScreen(new MainMenuScreen(this));
+            } catch (Throwable throwable) {
+                System.exit(1);
+            }
         }
 //        if (isAppAlreadyRunning(this)) {
-//            setScreen(new ErrorScreen(this));
+//            this.setScreen(new ErrorScreen(this));
 //        } else {
-//            try {
-//                new Thread(this::startServer).start();
-//                setScreen(new MainMenuScreen(this));
-//            } catch (Throwable throwable) {
-//                System.exit(1);
-//            }
+//            new Thread(this::startServer).start();
+//            this.setScreen(new MainMenuScreen(this));
 //        }
         cursor();
     }
@@ -43,7 +43,6 @@ public class Starter extends Game {
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             System.exit(0);
         }
-
         fullScreen();
     }
 
